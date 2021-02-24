@@ -1,0 +1,56 @@
+﻿@using BW.Models
+@model Clubs
+@{
+    ViewBag.Title = "Edit";
+}
+<br />
+<br />
+
+@using (Html.BeginForm())
+{
+
+    <fieldset>
+        @Html.HiddenFor(model => model.Id)
+
+
+        <div class="ui form">
+            <div class="four wide field">
+                <label>Название</label>
+
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.Name)
+                </div>
+            </div>
+
+            <div class="editor-field field">
+                <label>Описание</label>
+                @Html.EditorFor(model => model.Discription, new { htmlAttributes = new { @class = "", @cols = 35, @rows = 3 } })
+
+            </div>
+
+
+            <div class="field">
+                <label>Тэги</label>
+                @foreach (Tags c in ViewBag.Tags)
+                {
+                    <div class="ui checkbox">
+
+                        <input name="selectedBooks" type="checkbox" value="@c.Id" @(Model.Tags.Contains(c) ? "checked=\"checked\"" : "") />
+                        <label> @c.Name &nbsp </label>
+                    </div>
+                }
+                <a style="text-decoration: none; color: black" href="~/Home/ClubPage/@Model.Id" class="ui button">
+                    Добавить
+                </a>
+            </div>
+
+            <input class="ui primary button" type="submit" value="Сохранить" />
+            <a style="text-decoration: none; color: black" href="~/Home/ClubPage/@Model.Id" class="ui button">
+                Отмена
+            </a>
+
+            @Html.ActionLink("Удалить Клуб", "Delete", new { id = Model.Id })
+
+        </div>
+    </fieldset>
+}

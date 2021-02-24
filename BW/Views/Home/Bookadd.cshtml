@@ -1,0 +1,85 @@
+﻿@using BW.Models
+@model Clubs
+    < br />
+<br />
+
+<div class="ui placeholder segment">
+    <div class="ui two column stackable center aligned grid">
+        <div class="ui vertical divider">Или</div>
+        <div class="middle aligned row">
+            <div class="column">
+                <div class="ui icon header">
+                    <i class="search icon"></i>
+                    Найти книгу
+                </div>
+
+                <Form class="field" asp-controller="Home" asp-action="Bookadd">
+                    <div class="ui search">
+                        <div class="ui icon input">
+                            <input name="SearchString" class="prompt" type="text" placeholder="Поиск...">
+                            <i class="search icon"></i>
+                        </div>
+                        <div class="results"></div>
+                    </div>
+                </Form>
+            </div>
+            <div class="column">
+                <h2 class="ui  header">
+                    <i class="big icons">
+                        <i class="book icon"></i>
+                        <i class="corner add icon"></i>
+                    </i>
+                    <br />
+                    Добавить новую книгу
+                </h2>
+                <div class="ui primary button">
+                    @Html.ActionLink("Создать", "Create", "Books")
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<br />
+<br />
+ @using (Html.BeginForm())
+  {<fieldset>
+
+    <div class="ui cards">
+
+        @foreach (var book in ViewBag.Books)
+        {
+            <a style="text-decoration: none; margin-top: 14px; text-align: center" href="~/Books/Details/@book.Id">
+
+                <div class="card">
+                    <div class="content" style="height: 60px">
+                        <h4 class="header">
+                            @book.Name
+                        </h4>
+                    </div>
+
+                    <div class="sub content" style="height: 50px">
+
+                        <a name="selectedBooks" value="@book.Id"
+                           @(Model.Books.Contains(book) ? "visited=\"visited\"" : "")
+                           class="ui button" style="text-decoration: none;">
+                            <i class="add icon"></i>Прочли
+                        </a>
+
+
+
+                        <a class="ui button" style="text-decoration: none; float: right"><i class="add icon"></i>Читаем</a>
+                    </div>
+
+                </div>
+            </a>
+
+
+        }
+    </div>
+    <p>
+        <input class="ui button" type="submit" value="Сохранить" />
+    </p>
+</fieldset>
+}
