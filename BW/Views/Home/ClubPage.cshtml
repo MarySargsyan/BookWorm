@@ -21,7 +21,7 @@
                 $(".editbooks").css("display", "none");
                 $(".editexbooks").css("display", "none");
                 $(".exbooks").css("display", "block");
-                 $("#changereadingbook").css("display", "none");
+                $("#changereadingbook").css("display", "none");
 
             });
             $("#openusersedit").click(function () {
@@ -45,17 +45,159 @@
             <img src=" @Html.DisplayFor(model => model.Image)" />
         </div>
     </div>
-
-    <div style="width:inherit" class="ui segment">
-
-        <div class="ui right internal attached rail">
+    <div class="ui two column grid">
+        @*Информация+читаемая*@
+        <div class="ui twelve wide column">
             <div class="ui segment">
-                <div class="ui middle aligned animated list">
-                    <h1 class="ui header">
+                <a href="~/Home/Edit/@Model.Id" style="text-decoration: none; color: black; float:right">
+                    <i class="big edit outline icon"></i>
+                </a>
+                <div class="ui two column grid">
+                    <div class="ui column">
+                        <i style="float: left; " class="grey huge @Html.DisplayFor(model => model.Icon)"></i>
+                        <h1 class="ui header">
+                            <div class="content">
+                                @Html.DisplayFor(model => model.Name)
+                                <div class="sub header">
+                                    @Html.DisplayFor(model => model.Discription)
+
+
+                                </div>
+                            </div>
+                        </h1>
+                    </div>
+                    <div class=" ui column">
+                        <h3 class="ui header">Читают:</h3>
+
+                        @foreach (Books books in Model.Books)
+                        {
+                            if (books.Id == Model.Readingbook)
+                            {
+                                <div>
+                                    <div class="ui label">
+                                        @books.Name
+                                    </div>
+
+                                </div>
+                            }
+                        }
+                        @*<div style="display: none" class="ui basic buttons editbooks">
+
+                            <a href="~/Home/Bookadd/@Model.Id" id="addnewbook" class="ui button">
+                                Выбрать новую
+                            </a>
+                            <a id="savebooks" class="ui button">
+                                Отметить прочтенным
+                            </a>
+                        </div>*@
+                    </div>
+                </div>
+
+               
+            </div>
+        </div>
+
+        @*прочтенные*@
+    <div class="ui four wide column">
+        <div class="ui segment">
+
+            <h3 class="ui header">
+                Прочтено:
+            </h3>
+            @*<button id="openbooksedit" style="float: right" class="circular ui icon button">
+                <i class="big edit icon"></i>
+            </button>*@
+
+            <div class="content">
+
+                @*Редактирование почтенных книг
+        Можно закинуть в будущем в частичное представление*@
+
+                @*@using (Html.BeginForm())
+                {
+                    <div style="display: none;" class="editexbooks">
+
+                        @Html.HiddenFor(model => model.Id)
+
+
+                        @foreach (Books c in ViewBag.Books)
+                        {
+                            foreach (Books books in Model.Books)
+                            {
+                                if ((books.Id == c.Id) & (books.Id != Model.Readingbook))
+                                {
+                                    <div class="ui checkbox">
+
+                                        <input name="selectedBooks" type="checkbox" value="@c.Id" @(Model.Books.Contains(c) ? "checked=\"checked\"" : "") />
+                                        <label> @c.Name</label>
+                                    </div>
+                                }
+                            }
+                        }
+
+
+                        <div class="ui basic buttons editbooks">
+
+                            <a href="~/Home/Bookadd/@Model.Id" id="addnewbook" class="ui button">
+                                Добавить новую книгу
+                            </a>
+                            <input type="submit" id="savebooks" class="ui button" value="Сохранить изменения">
+                        </div>
+                    </div>
+                }*@
+
+                @*Вывод почтенных книг*@
+                <div class="ui link list exbooks">
+
+                    @foreach (Books books in Model.Books)
+                    {
+                        if (books.Id != Model.Readingbook)
+                        {
+                        <a class="item" href="~/Books/Details/@books.Id">
+                            @books.Name
+                        </a>
+                        }
+                    }
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    </div>
+ 
+
+
+    <div class="ui two column grid">
+            <div class="twelve wide column">
+                    @foreach (Post post in Model.Posts)
+                    {
+                        <div class="ui segment">
+                            <div class="ui fluid placeholder">
+                                <div class="image header">
+                                    <img class="ui mini circular image" style="float:left" src="@Model.Image">
+                                    <h3 class="ui header">
+                                        @Model.Name
+                                        <div class="ui sub header">
+                                            @post.Date
+                                        </div>
+                                    </h3>
+                                </div>
+                                <h2 class="ui header">
+                                    @post.Text
+                                </h2>
+                            </div>
+                        </div>
+                    }
+
+            </div>
+            <div class="four wide column">
+                <div class="ui segment">
+                    <h3 class="ui header">
                         Участники:
-                    </h1>
-                   <button id="openusersedit" style="float: right" class="circular ui icon button">
-                    <i class="big edit icon"></i>
+                    </h3>
+                    <button id="openusersedit" style="float: right" class="circular ui icon button">
+                        <i class="big edit icon"></i>
                     </button>
 
                     <div id="editusers" style="display: none">
@@ -64,12 +206,12 @@
                             @Html.HiddenFor(model => model.Id)
                             foreach (ApplicationUser c in ViewBag.Users)
                             {
-                                foreach (ApplicationUser user in Model.Users)
+                                foreach (ApplicationUser user in Model.ApplicationUser)
                                 {
-                                    if (user.Id == c.Id) 
+                                    if (user.Id == c.Id)
                                     {
                                         <div class="ui checkbox">
-                                            <input name="selectedUsers" type="checkbox" value="@c.Id" @(Model.Users.Contains(c) ? "checked=\"checked\"" : "") />
+                                            <input name="selectedUsers" type="checkbox" value="@c.Id" @(Model.ApplicationUser.Contains(c) ? "checked=\"checked\"" : "") />
                                             <label> @c.Email</label>
                                         </div>
                                     }
@@ -80,8 +222,10 @@
                             </div>
                         }
                     </div>
-                    <div id="users" style="display:block">
-                        @foreach (ApplicationUser User in Model.Users)
+
+                    <div id="users" style="display:block" class="ui middle aligned animated list">
+
+                        @foreach (ApplicationUser User in Model.ApplicationUser)
                         {
                             <div class="item">
                                 <img style="float:left" class="ui avatar image" src="@User.Image">
@@ -92,127 +236,7 @@
                         }
                     </div>
                 </div>
+               
             </div>
-
-            <div class="ui segment">
-
-                <h1 class="ui header">
-                    Прочтено:
-                </h1>
-                <button id="openbooksedit" style="float: right" class="circular ui icon button">
-                    <i class="big edit icon"></i>
-                </button>
-
-                <div class="content">
-
-                    @*Редактирование почтенных книг
-                      Можно закинуть в будущем в частичное представление*@
-                  
-                    @using (Html.BeginForm())
-                    {
-                        <div style="display: none;" class="editexbooks">
-
-                            @Html.HiddenFor(model => model.Id)
-
-
-                            @foreach (Books c in ViewBag.Books)
-                            {
-                                foreach (Books books in Model.Books)
-                                {
-                                    if ((books.Id == c.Id) & (books.Id != Model.Readingbook))
-                                    {
-                                        <div class="ui checkbox">
-
-                                            <input name="selectedBooks" type="checkbox" value="@c.Id" @(Model.Books.Contains(c) ? "checked=\"checked\"" : "") />
-                                            <label> @c.Name</label>
-                                        </div>
-                                    }
-                                }
-                            }
-
-
-                            <div class="ui basic buttons editbooks">
-
-                                <a href="~/Home/Bookadd/@Model.Id" id="addnewbook" class="ui button">
-                                    Добавить новую книгу
-                                </a>
-                                <input type="submit" id="savebooks" class="ui button" value="Сохранить изменения">
-                            </div>
-                        </div>
-                    }
-
-                    @*Вывод почтенных книг*@
-                <div class="exbooks">
-                    @foreach (Books books in Model.Books)
-                    {
-                        if (books.Id != Model.Readingbook)
-                        {
-                            <div>
-                                <div class="ui label">
-                                    @books.Name
-                                </div>
-
-                            </div>
-                        }
-                    }
-                </div>
-                    @*Вывод читаемой книги*@
-
-                    <h2 class="ui header">Читают:</h2>
-
-                    @foreach (Books books in Model.Books)
-                    {
-                        if (books.Id == Model.Readingbook)
-                        {
-                            <div>
-                                <div class="ui label">
-                                    @books.Name
-                                </div>
-
-                            </div>
-                        }
-                    }
-                    <br />
-                    <div style="display: none" class="ui basic buttons editbooks">
-
-                        <a href="~/Home/Bookadd/@Model.Id" id="addnewbook" class="ui button">
-                            Выбрать новую
-                        </a>
-                        <a id="savebooks" class="ui button">
-                            Отметить прочтенным
-                        </a>
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
-
-
-
-        <div>
-            <br />
-            <i style="float: left; " class="grey huge @Html.DisplayFor(model => model.Icon)"></i>
-            <h1 class="ui header">
-                <div class="content">
-                    @Html.DisplayFor(model => model.Name)
-                    <div class="sub header">
-                        @Html.DisplayFor(model => model.Discription)
-
-                        <a href="~/Home/Edit/@Model.Id" style="text-decoration: none; color: black;">
-                            <i class="big edit outline icon"></i>
-                        </a>
-                    </div>
-                </div>
-            </h1>
-        </div>
-        <br />
-        @foreach (Tags tags in Model.Tags)
-        {
-            <div class="ui label">
-                @tags.Name
-            </div>
-        }
     </div>
-
 </body>

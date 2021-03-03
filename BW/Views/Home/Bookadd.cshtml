@@ -1,6 +1,4 @@
-﻿@using BW.Models
-@model Clubs
-    < br />
+﻿<br />
 <br />
 
 <div class="ui placeholder segment">
@@ -48,9 +46,9 @@
 
     <div class="ui cards">
 
-        @foreach (var book in ViewBag.Books)
+        @foreach (var book in Model)
         {
-            <a style="text-decoration: none; margin-top: 14px; text-align: center" href="~/Books/Details/@book.Id">
+            <a style="text-decoration: none; margin-top: 14px; text-align: center ; color: black" href="~/Books/Details/@book.Id">
 
                 <div class="card">
                     <div class="content" style="height: 60px">
@@ -62,12 +60,9 @@
                     <div class="sub content" style="height: 50px">
 
                         <a name="selectedBooks" value="@book.Id"
-                           @(Model.Books.Contains(book) ? "visited=\"visited\"" : "")
                            class="ui button" style="text-decoration: none;">
                             <i class="add icon"></i>Прочли
                         </a>
-
-
 
                         <a class="ui button" style="text-decoration: none; float: right"><i class="add icon"></i>Читаем</a>
                     </div>
@@ -78,8 +73,8 @@
 
         }
     </div>
-    <p>
+    @*<p>
         <input class="ui button" type="submit" value="Сохранить" />
-    </p>
+    </p>*@
 </fieldset>
 }

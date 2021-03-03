@@ -25,12 +25,16 @@ namespace BW.Models
         //public DateTime LastPing { get; set; }
         public virtual ICollection<Clubs> Clubs { get; set; }
         public virtual ICollection<Books> Book { get; set; }
-
+        public virtual ICollection<Post> Posts { get; set; }
+        public virtual ICollection<Friends> Friend { get; set; }
+        public virtual ICollection<site> Sites { get; set; }
         public ApplicationUser()
         {
             Clubs = new List<Clubs>();
             Book = new List<Books>();
-
+            Posts = new List<Post>();
+            Friend = new List<Friends>();
+            Sites = new List<site>();
         }
 
     }
@@ -46,14 +50,14 @@ namespace BW.Models
         
         public virtual ICollection<Clubs> Clubs { get; set; }
         public virtual ICollection<Tags> Tags { get; set; }
-        public virtual ICollection<ApplicationUser> Users { get; set; }
+        public virtual ICollection<ApplicationUser> ApplicationUser { get; set; }
 
         public Books()
         {
 
             Clubs = new List<Clubs>();
             Tags = new List<Tags>();
-            Users = new List<ApplicationUser>();
+            ApplicationUser = new List<ApplicationUser>();
         }
     }
 
@@ -71,6 +75,17 @@ namespace BW.Models
 
         }
     }
+        public class Friends
+        {
+            public int Id { get; set; }
+
+            public virtual ICollection<ApplicationUser> User { get; set; }
+
+            public Friends()
+            {
+                User = new List<ApplicationUser>();
+            }
+        }
 
     public class Clubs
     {
@@ -83,19 +98,17 @@ namespace BW.Models
         public int Readingbook { get; set; }
         public virtual ICollection<Tags> Tags { get; set; }
         public virtual ICollection<Books> Books { get; set; }
-        public virtual ICollection<ApplicationUser> Users { get; set; }
+        public virtual ICollection<ApplicationUser> ApplicationUser { get; set; }
+        public virtual ICollection<Post> Posts { get; set; }
 
-        //public int ChatsId { get; set; }
-        //public Chat Chat { get; set; }
-
-        //public int ReadBookId { get; set; }
-        //public Books ReadBook { get; set; }
 
 
         public Clubs()
         {
+            Posts = new List<Post>();
+
             Tags = new List<Tags>();
-            Users = new List<ApplicationUser>();
+            ApplicationUser = new List<ApplicationUser>();
             Books = new List<Books>();
         }
 
@@ -127,17 +140,37 @@ public class ChatMessage
     public ApplicationUser User { get; set; }
 }
 
+public class Post
+{
+    public int Id { get; set; }
+
+    public DateTime? Date { get; set; }
+    public string Text { get; set; }
+    public string Image { get; set; }
+
+    public ApplicationUser User { get; set; } 
+    public Clubs Clubs { get; set; }
+}
 
 
+public class site
+{
+    public int id { get; set; }
+    public string url { get; set; }
+    public string ico { get; set; }
+    public ApplicationUser User { get; set; }
+}
 
 public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 {
+    public DbSet<Post> Posts { get; set; } 
     public DbSet<Chat> Chat { get; set; }
     public DbSet<ChatMessage> ChatMessage { get; set; }
     public DbSet<Books> Books { get; set; }
     public DbSet<Clubs> Clubs { get; set; }
     public DbSet<Tags> Tags { get; set; }
-
+    public DbSet<Friends> Friends { get; set; }
+    public DbSet<site> Sites { get; set; }
     public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
     {
@@ -147,6 +180,5 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         return new ApplicationDbContext();
     }
-
 
 }

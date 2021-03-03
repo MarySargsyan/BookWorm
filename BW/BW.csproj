@@ -185,6 +185,7 @@
     <Compile Include="Controllers\ClubsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PostsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -219,6 +220,58 @@
     <Compile Include="Migrations\202102161312284_8.cs" />
     <Compile Include="Migrations\202102161312284_8.Designer.cs">
       <DependentUpon>202102161312284_8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102261041068_9.cs" />
+    <Compile Include="Migrations\202102261041068_9.Designer.cs">
+      <DependentUpon>202102261041068_9.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102271352516_posts.cs" />
+    <Compile Include="Migrations\202102271352516_posts.Designer.cs">
+      <DependentUpon>202102271352516_posts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102271401155_posts2.cs" />
+    <Compile Include="Migrations\202102271401155_posts2.Designer.cs">
+      <DependentUpon>202102271401155_posts2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103010839550_posts3.cs" />
+    <Compile Include="Migrations\202103010839550_posts3.Designer.cs">
+      <DependentUpon>202103010839550_posts3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103011305496_friend.cs" />
+    <Compile Include="Migrations\202103011305496_friend.Designer.cs">
+      <DependentUpon>202103011305496_friend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103011337301_friends1.cs" />
+    <Compile Include="Migrations\202103011337301_friends1.Designer.cs">
+      <DependentUpon>202103011337301_friends1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103011342281_friends2.cs" />
+    <Compile Include="Migrations\202103011342281_friends2.Designer.cs">
+      <DependentUpon>202103011342281_friends2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103011347274_fr.cs" />
+    <Compile Include="Migrations\202103011347274_fr.Designer.cs">
+      <DependentUpon>202103011347274_fr.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103011349433_fre.cs" />
+    <Compile Include="Migrations\202103011349433_fre.Designer.cs">
+      <DependentUpon>202103011349433_fre.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103011402071_fren.cs" />
+    <Compile Include="Migrations\202103011402071_fren.Designer.cs">
+      <DependentUpon>202103011402071_fren.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103011736205_postclubs.cs" />
+    <Compile Include="Migrations\202103011736205_postclubs.Designer.cs">
+      <DependentUpon>202103011736205_postclubs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103011809274_sites.cs" />
+    <Compile Include="Migrations\202103011809274_sites.Designer.cs">
+      <DependentUpon>202103011809274_sites.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202103011820058_icoforsite.cs" />
+    <Compile Include="Migrations\202103011820058_icoforsite.Designer.cs">
+      <DependentUpon>202103011820058_icoforsite.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -301,6 +354,14 @@
     <Content Include="Views\Clubs\Details.cshtml" />
     <Content Include="Views\Clubs\Edit.cshtml" />
     <Content Include="Views\Clubs\Index.cshtml" />
+    <Content Include="Views\Home\DeleteClub.cshtml" />
+    <Content Include="Views\Account\Profil.cshtml" />
+    <Content Include="Views\Account\Edit.cshtml" />
+    <Content Include="Views\Posts\Create.cshtml" />
+    <Content Include="Views\Posts\Delete.cshtml" />
+    <Content Include="Views\Posts\Details.cshtml" />
+    <Content Include="Views\Posts\Edit.cshtml" />
+    <Content Include="Views\Posts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -342,6 +403,45 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102161312284_8.resx">
       <DependentUpon>202102161312284_8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102261041068_9.resx">
+      <DependentUpon>202102261041068_9.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102271352516_posts.resx">
+      <DependentUpon>202102271352516_posts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102271401155_posts2.resx">
+      <DependentUpon>202102271401155_posts2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103010839550_posts3.resx">
+      <DependentUpon>202103010839550_posts3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103011305496_friend.resx">
+      <DependentUpon>202103011305496_friend.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103011337301_friends1.resx">
+      <DependentUpon>202103011337301_friends1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103011342281_friends2.resx">
+      <DependentUpon>202103011342281_friends2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103011347274_fr.resx">
+      <DependentUpon>202103011347274_fr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103011349433_fre.resx">
+      <DependentUpon>202103011349433_fre.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103011402071_fren.resx">
+      <DependentUpon>202103011402071_fren.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103011736205_postclubs.resx">
+      <DependentUpon>202103011736205_postclubs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103011809274_sites.resx">
+      <DependentUpon>202103011809274_sites.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103011820058_icoforsite.resx">
+      <DependentUpon>202103011820058_icoforsite.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

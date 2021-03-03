@@ -44,12 +44,28 @@
                 </a>
             </div>
 
+            <div class="field">
+                <label>Читаемая книга</label>
+                @foreach (Books books in Model.Books)
+                {
+                    if (books.Id == Model.Readingbook)
+                    {
+                        <div>
+                            <div class="ui label">
+                                @books.Name
+                            </div>
+
+                        </div>
+                    }
+                }
+            </div>
+
             <input class="ui primary button" type="submit" value="Сохранить" />
             <a style="text-decoration: none; color: black" href="~/Home/ClubPage/@Model.Id" class="ui button">
                 Отмена
             </a>
 
-            @Html.ActionLink("Удалить Клуб", "Delete", new { id = Model.Id })
+            @Html.ActionLink("Удалить Клуб", "DeleteClub", new { id = Model.Id })
 
         </div>
     </fieldset>

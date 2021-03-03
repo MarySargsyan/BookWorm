@@ -45,7 +45,7 @@ namespace BW.Controllers
         {
             Clubs newclub = context.Clubs.Find(clubs.Id);
             newclub.Books.Clear();
-            newclub.Users.Clear();
+            newclub.ApplicationUser.Clear();
             if (selectedBooks != null)
             {
                 //получаем выбранные книги
@@ -54,17 +54,41 @@ namespace BW.Controllers
                     newclub.Books.Add(c);
                 }
             }
-            if (selectedUsers!= null)
+            if (selectedUsers != null)
             {
                 foreach (var c in context.Users.Where(co => selectedUsers.Contains(co.Id)))
                 {
-                    newclub.Users.Add(c);
+                    newclub.ApplicationUser.Add(c);
                 }
             }
 
             context.Entry(newclub).State = EntityState.Modified;
             context.SaveChanges();
             return RedirectToAction("ClubPage");
+        }
+        [HttpGet]
+        public ActionResult DeleteClub(int? id)
+        {
+            if (id == null)
+            { return HttpNotFound(); }
+            Clubs b = context.Clubs.Find(id);
+            if (b == null) 
+            { return HttpNotFound();}
+            return View(b);
+        }
+        [HttpPost, ActionName("DeleteClub")]
+        public ActionResult DeleteConfirmed(int? id)
+        {
+            if (id == null)
+            { return HttpNotFound(); }
+            Clubs b = context.Clubs.Find(id);
+            if (b == null)
+            { return HttpNotFound(); }
+
+            context.Clubs.Remove(b);
+            context.SaveChanges();
+            return RedirectToAction("Index");
+
         }
         public ActionResult Contact()
         {
@@ -110,22 +134,17 @@ namespace BW.Controllers
         }
         
        
-        public ActionResult Bookadd(int? id, string searchString)
+        public ActionResult Bookadd(string searchString)
         {
-          Clubs clubs = context.Clubs.Find(id);
-          if (id == null) return RedirectToAction("Clubpage");
-          if (clubs == null)
-          {
-               return HttpNotFound();
-          }
+            var books = from m in context.Books
+                        select m;
 
-
-            if (!string.IsNullOrEmpty(searchString))
+            if (!String.IsNullOrEmpty(searchString))
             {
-                ViewBag.Books = context.Books.Where(s => s.Name.Contains(searchString));
-
+                books = books.Where(s => s.Name.Contains(searchString));
             }
-            return View(clubs);  
+
+            return View(books.ToList());
         }
 
 

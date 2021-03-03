@@ -1,0 +1,154 @@
+﻿@model BW.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Profil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="ui segment">
+
+    <div class="ui grid">
+        <div class="three wide column">
+            <div class="ui vertical fluid tabular menu">
+                <a class="active item">
+                    Моя страница
+                </a>
+                <a class="item">
+                    Чаты
+                </a>
+            </div>
+        </div>
+        <div class="thirteen wide stretched column">
+            <div class="ui grid">
+                <div class="two column row">
+                    <div class="four wide column">
+                        <div style="margin-left:14px" class="ui segment">
+                            <img class="ui small image" src="@Html.DisplayFor(model => model.Image)" />
+                            <br/>
+                            <div class="ui list">
+
+                                <div class="item">
+                                    <i class="marker icon"></i>
+                                    <div class="content">
+                                        @Html.DisplayFor(model => model.City)
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <i class="phone icon"></i>
+                                    <div class="content">
+                                        @Html.DisplayFor(model => model.PhoneNumber)
+
+                                    </div>
+                                </div>
+
+                                <div class="item">
+                                    <div class="ui large horizontal divided list">
+                                        @foreach (site site in Model.Sites)
+                                        {
+                                            <div class="item">
+                                                <a style="color: gray" href="@site.url"> <i class="@site.ico"></i></a>
+                                            </div>
+                                         }
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p>
+                                @Html.ActionLink("Редактировать", "Edit", new { id = Model.Id }) |  @Html.ActionLink("Настройки", "Index", "Manage", routeValues: null, htmlAttributes: new { id = "loginLink" })
+
+                            </p>
+                        </div>
+
+                    </div>
+                    <div class="twelve wide column">
+
+                        <div class="ui segment">
+                            <h4>@Html.DisplayFor(model => model.Email)</h4>
+
+                            <h5>@Html.DisplayFor(model => model.about)</h5>
+
+
+                        </div> 
+
+                        <div class="ui two column grid">
+                            <div class="ui column">
+
+                                <div class="ui segment">
+
+                                    <h2 class="ui header">
+                                        Клубы
+                                    </h2>
+                                    <div class="ui link list">
+
+                                        @foreach (var clubs in Model.Clubs)
+                                        {
+                                            <a class="item" href="~/Home/Clubpage/@clubs.Id">
+                                                <i class="@clubs.Icon"></i>
+                                                @clubs.Name
+                                            </a>
+                                        }
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="ui column">
+
+                                <div class="ui segment">
+
+                                    <h2 class="ui header">
+                                        Книги
+                                    </h2>
+                                    <div class="ui link list">
+
+                                        @foreach (var books in Model.Book)
+                                        {
+                                            <a class="item" href="~/Books/Details/@books.Id">
+                                                @books.Name
+                                            </a>
+                                        }
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="ui grid">
+                    <div class="two column row">
+                        <div class="four wide column">
+                            <div style="margin-left:14px" class="ui segment">
+                                <h4 class="ui header">Друзья</h4>
+                            </div>
+                        </div>
+                        <div class="twelve wide column">
+
+                            @foreach (Post post in Model.Posts)
+                            {
+                                <div class="ui segment">
+                                    <div class="ui fluid placeholder">
+                                        <div class="image header">
+                                            <img class="ui mini circular image" style="float:left" src="@Model.Image">
+                                            <h3 class="ui header">
+                                                @Model.Email
+                                                <div class="ui sub header">
+                                                    @post.Date
+                                                </div>
+                                            </h3>
+                                        </div>
+                                        <h2 class="ui header">
+                                            @post.Text
+                                        </h2>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

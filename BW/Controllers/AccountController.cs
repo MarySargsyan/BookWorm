@@ -9,12 +9,15 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using BW.Models;
+using System.Data.Entity;
 
 namespace BW.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
+        private ApplicationDbContext context = new ApplicationDbContext();
+
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -421,6 +424,50 @@ namespace BW.Controllers
             }
 
             base.Dispose(disposing);
+        }
+
+        public ActionResult Profil()
+        {
+            var userId = User.Identity.GetUserId();
+
+            ApplicationUser user = context.Users.Find(userId);
+            if (userId == " ") return RedirectToAction("Profil");
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+          
+            ViewBag.Books = context.Books.ToList();
+            ViewBag.Club = context.Clubs.ToList();
+            return View(user);
+        }
+
+        [HttpPost]
+        public ActionResult Profil(ApplicationUser user, int[] selectedBooks, string[] selectedClubs, int[] posts)
+        {
+            ApplicationUser newuser = context.Users.Find(user.Id);
+            newuser.Book.Clear();
+            newuser.Clubs.Clear();
+            if (selectedBooks != null)
+            {
+                //получаем выбранные книги
+                foreach (var c in context.Books.Where(co => selectedBooks.Contains(co.Id)))
+                {
+                    newuser.Book.Add(c);
+                }
+            }
+            if (selectedClubs != null)
+            {
+                foreach (var c in context.Clubs.Where(co => selectedClubs.Contains((co.Id).ToString())))
+                {
+                    newuser.Clubs.Add(c);
+                }
+            }
+           
+
+            context.Entry(newuser).State = EntityState.Modified;
+            context.SaveChanges();
+            return RedirectToAction("Profil");
         }
 
         #region Вспомогательные приложения
