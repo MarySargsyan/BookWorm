@@ -124,24 +124,55 @@
                         </div>
                         <div class="twelve wide column">
 
-                            @foreach (Post post in Model.Posts)
-                            {
-                                <div class="ui segment">
-                                    <div class="ui fluid placeholder">
-                                        <div class="image header">
-                                            <img class="ui mini circular image" style="float:left" src="@Model.Image">
-                                            <h3 class="ui header">
-                                                @Model.Email
-                                                <div class="ui sub header">
-                                                    @post.Date
-                                                </div>
-                                            </h3>
+                            <div class="ui segment">
+                                @using (Html.BeginForm("Create", "Posts", FormMethod.Post))
+                                {<div class="ui form">
+
+                                        @Html.AntiForgeryToken()
+                                        @*<input type="hidden" value="@Model.Id" name="User_id" />*@
+                                        <div class="field">
+                                            <image class="ui mini circular image" style="float:left" src="@Model.Image" />
+
+                                            <textarea style="margin-left: 10px" name="Text" placeholder="Введите текст публикации"></textarea>
+                                            <input class="ui button" type="submit" value="Публиковать" />
                                         </div>
-                                        <h2 class="ui header">
-                                            @post.Text
-                                        </h2>
+
+
                                     </div>
-                                </div>
+                                }
+                            </div>
+
+                            @foreach (Post post in ViewBag.Posts)
+                            {
+                                if (Model.Posts.Contains(post))
+                                {
+                                    using (Html.BeginForm("Edit", "Posts", FormMethod.Post))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.HiddenFor(p => p.Id)
+
+                                        <div class="ui form">
+                                            <input class="ui primary button" type="submit" value="Редактировать" />
+                                        </div>
+                                    }
+                                    <div class="ui segment">
+                                        <div class="ui fluid placeholder">
+                                            <div class="image header">
+                                                <img class="ui mini circular image" style="float:left" src="@Model.Image">
+                                                <h3 class="ui header">
+                                                    @Model.Email
+                                                    <div class="ui sub header">
+                                                        @post.Date
+                                                    </div>
+                                                </h3>
+                                            </div>
+                                            <h2 class="ui header">
+                                                @post.Text
+                                            </h2>
+                                        </div>
+                                    </div>
+
+                                }
                             }
                         </div>
                     </div>

@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using BW.Models;
 
 namespace BW.Controllers
 {
     public class PostsController : Controller
     {
+
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Posts
@@ -46,11 +48,16 @@ namespace BW.Controllers
         // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Date,Text,Image")] Post post)
+        public async Task<ActionResult> Create([Bind(Include = "Id,Date,Text,Image,iduser")] Post post)
         {
+            ApplicationUser user = db.Users.FirstOrDefault();
+
             if (ModelState.IsValid)
             {
+                post.Date = DateTime.Now;
+                post.User = user;
                 db.Posts.Add(post);
+
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }

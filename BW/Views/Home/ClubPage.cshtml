@@ -8,22 +8,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script>
         $(document).ready(function () {
-            $("#openbooksedit").click(function () {
-                $(".editbooks").css("display", "block");
-                $(".exbooks").css("display", "none");
-                $(".editexbooks").css("display", "block");
-                $("#changereadingbook").css("display", "block");
-                $("#openbooksedit").css("visibility", "hidden");
-
-            });
-            $("#savebooks").click(function () {
-                $("#openbooksedit").css("visibility", "visible");
-                $(".editbooks").css("display", "none");
-                $(".editexbooks").css("display", "none");
-                $(".exbooks").css("display", "block");
-                $("#changereadingbook").css("display", "none");
-
-            });
+          
             $("#openusersedit").click(function () {
                 $("#users").css("display", "none");
                 $("#editusers").css("display", "block");
@@ -81,15 +66,6 @@
                                 </div>
                             }
                         }
-                        @*<div style="display: none" class="ui basic buttons editbooks">
-
-                            <a href="~/Home/Bookadd/@Model.Id" id="addnewbook" class="ui button">
-                                Выбрать новую
-                            </a>
-                            <a id="savebooks" class="ui button">
-                                Отметить прочтенным
-                            </a>
-                        </div>*@
                     </div>
                 </div>
 
@@ -97,54 +73,13 @@
             </div>
         </div>
 
-        @*прочтенные*@
     <div class="ui four wide column">
         <div class="ui segment">
 
             <h3 class="ui header">
                 Прочтено:
             </h3>
-            @*<button id="openbooksedit" style="float: right" class="circular ui icon button">
-                <i class="big edit icon"></i>
-            </button>*@
-
             <div class="content">
-
-                @*Редактирование почтенных книг
-        Можно закинуть в будущем в частичное представление*@
-
-                @*@using (Html.BeginForm())
-                {
-                    <div style="display: none;" class="editexbooks">
-
-                        @Html.HiddenFor(model => model.Id)
-
-
-                        @foreach (Books c in ViewBag.Books)
-                        {
-                            foreach (Books books in Model.Books)
-                            {
-                                if ((books.Id == c.Id) & (books.Id != Model.Readingbook))
-                                {
-                                    <div class="ui checkbox">
-
-                                        <input name="selectedBooks" type="checkbox" value="@c.Id" @(Model.Books.Contains(c) ? "checked=\"checked\"" : "") />
-                                        <label> @c.Name</label>
-                                    </div>
-                                }
-                            }
-                        }
-
-
-                        <div class="ui basic buttons editbooks">
-
-                            <a href="~/Home/Bookadd/@Model.Id" id="addnewbook" class="ui button">
-                                Добавить новую книгу
-                            </a>
-                            <input type="submit" id="savebooks" class="ui button" value="Сохранить изменения">
-                        </div>
-                    </div>
-                }*@
 
                 @*Вывод почтенных книг*@
                 <div class="ui link list exbooks">

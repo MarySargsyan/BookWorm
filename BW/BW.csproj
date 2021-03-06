@@ -273,6 +273,10 @@
     <Compile Include="Migrations\202103011820058_icoforsite.Designer.cs">
       <DependentUpon>202103011820058_icoforsite.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202103041345088_roles.cs" />
+    <Compile Include="Migrations\202103041345088_roles.Designer.cs">
+      <DependentUpon>202103041345088_roles.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -442,6 +446,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202103011820058_icoforsite.resx">
       <DependentUpon>202103011820058_icoforsite.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103041345088_roles.resx">
+      <DependentUpon>202103041345088_roles.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

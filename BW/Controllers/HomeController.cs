@@ -90,12 +90,7 @@ namespace BW.Controllers
             return RedirectToAction("Index");
 
         }
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
+       
 
         public ActionResult Edit(int? id)
         {
@@ -130,41 +125,38 @@ namespace BW.Controllers
 
             context.Entry(newclub).State = EntityState.Modified;
             context.SaveChanges();
-            return RedirectToAction("ClubPage");
+            return RedirectToAction("Clubpage");
         }
         
        
-        public ActionResult Bookadd(string searchString)
+        public ActionResult Bookadd(string searchString, Clubs clubs)
         {
-            var books = from m in context.Books
-                        select m;
-
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                books = books.Where(s => s.Name.Contains(searchString));
-            }
-
-            return View(books.ToList());
+            Clubs clubs1 = context.Clubs.Find(clubs.Id);
+            ViewBag.Books = context.Books.Where(s => s.Name.Contains(searchString)).ToList();
+            return View(clubs1);
         }
 
 
         [HttpPost]
-        public ActionResult Bookadd(Clubs clubs,int[] selectedBook)
+        public ActionResult Bookadd(Clubs clubs, Books books)
         {
             Clubs newclub = context.Clubs.Find(clubs.Id);
+            Books books1 = context.Books.Find(books.Id);
 
-            newclub.Books.Clear();
-            if (selectedBook != null)
-            {
-                //получаем выбранные книги
-                foreach (var c in context.Books.Where(co => selectedBook.Contains(co.Id)))
-                {
-                    newclub.Books.Add(c);
-                }
-            }
-            context.Entry(newclub).State = EntityState.Modified;
+            newclub.Books.Add(books1);
+            newclub.Readingbook = 0;
+            newclub.Readingbook = books1.Id;
+           
             context.SaveChanges();
             return RedirectToAction("ClubPage");
+        }
+
+        public ActionResult bookcheck (int? id)
+        {
+            Clubs clubs1 = context.Clubs.Find(id);
+            clubs1.Readingbook = 0;
+            context.SaveChanges();
+            return RedirectToAction("Edit");
         }
 
     }

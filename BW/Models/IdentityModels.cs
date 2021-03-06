@@ -94,6 +94,7 @@ namespace BW.Models
         public string Discription { get; set; }
         public string Icon { get; set; }
         public string Image { get; set; }
+        public string Admin { get; set; }
         public double Rating { get; set; }
         public int Readingbook { get; set; }
         public virtual ICollection<Tags> Tags { get; set; }

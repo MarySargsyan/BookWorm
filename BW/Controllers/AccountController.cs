@@ -436,9 +436,8 @@ namespace BW.Controllers
             {
                 return HttpNotFound();
             }
-          
-            ViewBag.Books = context.Books.ToList();
-            ViewBag.Club = context.Clubs.ToList();
+            ViewBag.Posts = context.Posts.ToList().OrderByDescending(s=> s.Date);
+
             return View(user);
         }
 
@@ -446,25 +445,7 @@ namespace BW.Controllers
         public ActionResult Profil(ApplicationUser user, int[] selectedBooks, string[] selectedClubs, int[] posts)
         {
             ApplicationUser newuser = context.Users.Find(user.Id);
-            newuser.Book.Clear();
-            newuser.Clubs.Clear();
-            if (selectedBooks != null)
-            {
-                //получаем выбранные книги
-                foreach (var c in context.Books.Where(co => selectedBooks.Contains(co.Id)))
-                {
-                    newuser.Book.Add(c);
-                }
-            }
-            if (selectedClubs != null)
-            {
-                foreach (var c in context.Clubs.Where(co => selectedClubs.Contains((co.Id).ToString())))
-                {
-                    newuser.Clubs.Add(c);
-                }
-            }
-           
-
+            newuser.Posts.Clear();
             context.Entry(newuser).State = EntityState.Modified;
             context.SaveChanges();
             return RedirectToAction("Profil");

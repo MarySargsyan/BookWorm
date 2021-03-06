@@ -156,3 +156,4 @@ C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.csprojAssemblyReference.cache
 C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.Migrations.postclubs.resources
 C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.Migrations.sites.resources
 C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.Migrations.icoforsite.resources
+C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.Migrations.roles.resources
