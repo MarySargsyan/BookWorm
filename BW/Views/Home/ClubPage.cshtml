@@ -162,12 +162,15 @@
 
                         @foreach (ApplicationUser User in Model.ApplicationUser)
                         {
-                            <div class="item">
-                                <img style="float:left" class="ui avatar image" src="@User.Image">
-                                <div class="sub header" style="text-align:inherit">
-                                    <div class="header">@User.Email</div>
-                                </div>
-                            </div>
+                            <a href="~/Account/Profil/@User.Id" style="color: gray">
+                                <div class="item">
+                                    <img style="float:left" class="ui avatar image" src="@User.Image">
+                                    <div class="sub header" style="text-align:inherit">
+                                        <div class="header">@User.Email</div>
+                                    </div>
+                               </div>
+                            </a>
+                            
                         }
                     </div>
                 </div>

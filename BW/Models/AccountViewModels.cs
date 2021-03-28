@@ -60,6 +60,7 @@ namespace BW.Models
 
         [Display(Name = "Запомнить меня")]
         public bool RememberMe { get; set; }
+        public string UserName { get; internal set; }
     }
 
     public class RegisterViewModel

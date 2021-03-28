@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BW.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BW.Controllers
 {
@@ -48,10 +49,12 @@ namespace BW.Controllers
         // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Date,Text,Image,iduser")] Post post)
+        public async Task<ActionResult> Create([Bind(Include = "Id,Date,Text,Image")] Post post)
         {
-            ApplicationUser user = db.Users.FirstOrDefault();
+            var userId = User.Identity.GetUserId();
 
+
+            ApplicationUser user = db.Users.Find(userId);
             if (ModelState.IsValid)
             {
                 post.Date = DateTime.Now;
@@ -59,7 +62,7 @@ namespace BW.Controllers
                 db.Posts.Add(post);
 
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("MyProfil", "Account");
             }
 
             return View(post);
@@ -119,7 +122,8 @@ namespace BW.Controllers
             Post post = await db.Posts.FindAsync(id);
             db.Posts.Remove(post);
             await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+
+            return RedirectToAction("MyProfil", "Account");
         }
 
         protected override void Dispose(bool disposing)

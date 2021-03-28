@@ -1,0 +1,10 @@
+﻿@model BW.Models.ApplicationUser
+@foreach(Chat chat in ViewBag.Chats)
+{ 
+    @chat.Name
+
+    foreach(ChatMessage message in chat.Messages)
+    {
+        @message.Text
+    }
+}

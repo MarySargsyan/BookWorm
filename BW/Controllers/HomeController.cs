@@ -1,4 +1,6 @@
 ﻿using BW.Models;
+using Microsoft.AspNet.Identity;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -13,19 +15,42 @@ namespace BW.Controllers
     public class HomeController : Controller
     {
         private ApplicationDbContext context = new ApplicationDbContext();
-        public ActionResult Index( string searchString)
+        public ActionResult Index( int? page, string searchString)
         {
-
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
             var clubs = from m in context.Clubs
                         select m;
 
             if (!String.IsNullOrEmpty(searchString))
             {
                 clubs = clubs.Where(s => s.Name.Contains(searchString));    
-            } 
-           
-            return View(clubs.ToList());
+            }
+            List<Clubs> clublist = clubs.ToList();
+            return View(clublist.ToPagedList(pageNumber, pageSize));
         }
+        public ActionResult News(string searchString)
+        {
+            var userId = User.Identity.GetUserId();
+            ApplicationUser user = context.Users.Find(userId);
+            if (userId == " ") return RedirectToAction("Index");
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.Posts = context.Posts.ToList().OrderByDescending(s => s.Date);
+            return View(user);
+        }
+        [HttpPost]
+        public ActionResult News(ApplicationUser user)
+        {
+            ApplicationUser newuser = context.Users.Find(user.Id);
+            newuser.Posts.Clear();
+            context.Entry(newuser).State = EntityState.Modified;
+            context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
 
         public ActionResult Clubpage(int? id)
         {
@@ -125,10 +150,11 @@ namespace BW.Controllers
 
             context.Entry(newclub).State = EntityState.Modified;
             context.SaveChanges();
-            return RedirectToAction("Clubpage");
+            return RedirectToAction("Clubpage", "Home");
+
         }
-        
-       
+
+
         public ActionResult Bookadd(string searchString, Clubs clubs)
         {
             Clubs clubs1 = context.Clubs.Find(clubs.Id);
@@ -149,6 +175,27 @@ namespace BW.Controllers
            
             context.SaveChanges();
             return RedirectToAction("ClubPage");
+        }
+
+        public ActionResult Createtag()
+        {
+            return View();
+        }
+       
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Createtag([Bind(Include = "Id,Name")] Tags tags)
+        {
+            if (ModelState.IsValid)
+            {
+                context.Tags.Add(tags);
+                await context.SaveChangesAsync();
+                return RedirectToAction("Edit");
+
+            }
+
+            return View(tags);
         }
 
         public ActionResult bookcheck (int? id)

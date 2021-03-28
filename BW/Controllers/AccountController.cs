@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using BW.Models;
 using System.Data.Entity;
+using System.Net;
 
 namespace BW.Controllers
 {
@@ -154,7 +155,7 @@ namespace BW.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Image = "/images/Avs/DefaultImg.jpg"};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -425,24 +426,29 @@ namespace BW.Controllers
 
             base.Dispose(disposing);
         }
-
-        public ActionResult Profil()
+        public ActionResult MyProfil()
         {
             var userId = User.Identity.GetUserId();
 
-            ApplicationUser user = context.Users.Find(userId);
-            if (userId == " ") return RedirectToAction("Profil");
+            return RedirectToAction("Profil", new { id = userId });
+
+        }
+        public ActionResult Profil(string id)
+        {
+            ApplicationUser user = context.Users.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
             }
             ViewBag.Posts = context.Posts.ToList().OrderByDescending(s=> s.Date);
+            ViewBag.ico = context.Networkicons.ToList();
+            ViewBag.user = context.Users.ToList();
 
             return View(user);
         }
 
         [HttpPost]
-        public ActionResult Profil(ApplicationUser user, int[] selectedBooks, string[] selectedClubs, int[] posts)
+        public ActionResult Profil(bool? logOn, bool? Logoff, ApplicationUser user, int[] selectedBooks, string[] selectedClubs)
         {
             ApplicationUser newuser = context.Users.Find(user.Id);
             newuser.Posts.Clear();
@@ -450,6 +456,73 @@ namespace BW.Controllers
             context.SaveChanges();
             return RedirectToAction("Profil");
         }
+
+        public ActionResult Chats()
+        {
+            var userId = User.Identity.GetUserId();
+
+
+            ApplicationUser user = context.Users.Find(userId);
+            if (userId == " ") return RedirectToAction("Profil");
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
+        }
+
+        public ActionResult Chat(int? id)
+        {
+            Chat chat = context.Chat.Find(id);
+            var userId = User.Identity.GetUserId();
+            ApplicationUser user = context.Users.Find(userId);
+            if (userId == " ") return RedirectToAction("Profil");
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.Chat = context.Chat.Where(c => c.Id == chat.Id);
+            ViewBag.Messages = context.ChatMessage.ToList().OrderByDescending(s => s.Date);
+            ViewBag.Users = context.Users.ToList();
+            return PartialView(user);
+        }
+
+        [HttpPost]
+        public ActionResult Chat(bool? logOn, bool? Logoff, ApplicationUser user)
+        {
+            ApplicationUser newuser = context.Users.Find(user.Id);
+            newuser.Messages.Clear();
+            context.Entry(newuser).State = EntityState.Modified;
+            context.SaveChanges();
+            return RedirectToAction("Profil");
+        }
+
+        public async Task<ActionResult> DelPost(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Post post = await context.Posts.FindAsync(id);
+            if (post == null)
+            {
+                return HttpNotFound();
+            }
+            return View(post);
+        }
+
+        // POST: Posts/Delete/5
+        [HttpPost, ActionName("DelPost")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteConfirmed(int id)
+        {
+            Post post = await context.Posts.FindAsync(id);
+            context.Posts.Remove(post);
+            await context.SaveChangesAsync();
+            return RedirectToAction("MyProfil");
+        }
+
+
 
         #region Вспомогательные приложения
         // Используется для защиты от XSRF-атак при добавлении внешних имен входа
@@ -479,6 +552,117 @@ namespace BW.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
+
+        public async Task<ActionResult> EditPosts(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Post post = await context.Posts.FindAsync(id);
+            if (post == null)
+            {
+                return HttpNotFound();
+            }
+            return View(post);
+        }
+
+        // POST: Posts/Edit/5
+        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
+        // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditPosts([Bind(Include = "Id,Date,Text,Image")] Post post)
+        {
+            if (ModelState.IsValid)
+            {
+                context.Entry(post).State = EntityState.Modified;
+                await context.SaveChangesAsync();
+                return RedirectToAction("MyProfil");
+            }
+            return View(post);
+        }
+        public async Task<ActionResult> Edit(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ApplicationUser user = context.Users.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.Sites = context.Sites.ToList();
+            ViewBag.Icons = context.Networkicons.ToList();
+            return View(user);
+
+        }
+
+        // POST: Posts/Edit/5
+        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
+        // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit(ApplicationUser user, int[] sites)
+        {
+            ApplicationUser user1 = context.Users.Find(user.Id);
+            user1.City = user.City;
+            user1.about = user.about;
+            user1.PhoneNumber = user.PhoneNumber;
+            user1.UserName = user.PhoneNumber;
+            user1.Email = user.Email;
+
+          
+            if (ModelState.IsValid)
+            {
+                context.SaveChanges();
+                return RedirectToAction("MyProfil");
+            }
+            return View(user);
+        } 
+
+        public ActionResult NewFriend(string friendid)
+        {
+            var userId = User.Identity.GetUserId();
+            ApplicationUser user1 = context.Users.Find(userId);
+            ApplicationUser friend = context.Users.Find(friendid);
+            
+            Friends friends = new Friends();
+            friends.User.Add(friend);
+            friends.User.Add(user1);
+
+            context.Friends.Add(friends);
+            if (ModelState.IsValid)
+            {
+                context.SaveChanges();
+                return RedirectToAction("Profil", new { id = friendid }) ;
+            }
+            return View(friend);
+        } 
+        public ActionResult DelFriend(string friendid)
+        {
+            var userId = User.Identity.GetUserId();
+            ApplicationUser user1 = context.Users.Find(userId);
+            ApplicationUser friend = context.Users.Find(friendid);
+
+            foreach (var f in friend.Friend.ToArray())
+            {
+                if (f.User.Contains(user1))
+                {
+                   context.Friends.Remove(f);
+
+                }
+            }
+
+            if (ModelState.IsValid)
+            {
+                context.SaveChanges();
+                return RedirectToAction("Profil", new { id = friendid }) ;
+            }
+            return View(friend);
+        }
+         
 
         internal class ChallengeResult : HttpUnauthorizedResult
         {

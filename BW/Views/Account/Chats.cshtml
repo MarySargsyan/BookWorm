@@ -1,0 +1,62 @@
+﻿@model BW.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Chats";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="ui segment">
+
+    <div class="ui grid">
+        <div class="three wide column">
+            <div class="ui vertical fluid tabular menu">
+                <a class="item" href="~/Account/Profil">
+                    Моя страница
+                </a>
+                <a class="active item">
+                    Чаты
+                </a>
+            </div>
+        </div>
+        <div class="thirteen wide stretched column">
+            <div class="ui grid">
+                <div class="two column row">
+
+                    <div class="twelve wide column ui segment">
+
+                        @Html.Partial("Chat", new {id = "1" })
+
+                    </div>
+                    <div class="four wide column">
+                        <div class="ui segment">
+                            @Html.ActionLink("Создать", "Create")
+                        </div>
+                        <div class="ui segment">
+                            <table class="table">
+
+                                @foreach (Chat chat in Model.Chats)
+                                {
+                                    <tr>
+                                        <td>
+                                            <a href="~/Chats/Details/@chat.Id">
+                                                @Html.DisplayFor(modelItem => chat.Name)
+                                            </a>
+                                        </td>
+                                        @*<td>
+                                                @Html.ActionLink("Edit", "Edit", new { id=chat.Id }) |
+                                                @Html.ActionLink("Details", "Details", new { id=chat.Id }) |
+                                                @Html.ActionLink("Delete", "Delete", new { id=chat.Id })
+                                                выйти из чата
+                                            </td>*@
+                                    </tr>
+                                }
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
