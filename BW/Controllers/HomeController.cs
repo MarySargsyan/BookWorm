@@ -17,18 +17,21 @@ namespace BW.Controllers
         private ApplicationDbContext context = new ApplicationDbContext();
         public ActionResult Index( int? page, string searchString)
         {
-            int pageSize = 3;
-            int pageNumber = (page ?? 1);
             var clubs = from m in context.Clubs
                         select m;
-
             if (!String.IsNullOrEmpty(searchString))
             {
-                clubs = clubs.Where(s => s.Name.Contains(searchString));    
+                clubs = clubs.Where(s => s.Name.Contains(searchString)|
+                s.Tags.Where(c => c.Name.Contains(searchString)).Count() > 0 ? true : false |
+                s.Books.Where(b => b.Name.Contains(searchString)).Count() > 0 ? true: false);
             }
+
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
             List<Clubs> clublist = clubs.ToList();
             return View(clublist.ToPagedList(pageNumber, pageSize));
         }
+       
         public ActionResult News(string searchString)
         {
             var userId = User.Identity.GetUserId();
@@ -60,8 +63,11 @@ namespace BW.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Posts = context.Posts.ToList().OrderByDescending(s => s.Date);
+
             ViewBag.Books = context.Books.ToList();
             ViewBag.Users = context.Users.ToList();
+            ViewBag.Chats = context.Chat.ToList();
             return View(clubs);
         }
 
@@ -204,6 +210,29 @@ namespace BW.Controllers
             clubs1.Readingbook = 0;
             context.SaveChanges();
             return RedirectToAction("Edit");
+        }
+
+        public ActionResult ClubChat(int? id)
+        {
+            Clubs clubs = context.Clubs.Find(id);
+            if (id == null) return RedirectToAction("Index");
+            if (clubs == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView();
+
+        } 
+        public ActionResult ClubNews(int? id)
+        {
+            Clubs clubs = context.Clubs.Find(id);
+            if (id == null) return RedirectToAction("Index");
+            if (clubs == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView();
+
         }
 
     }

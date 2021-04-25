@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BW.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BW.Controllers
 {
@@ -47,22 +48,26 @@ namespace BW.Controllers
         // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Text")] ChatMessage chatMessage, int chat)
+        public async Task<ActionResult> Create([Bind(Include = "Id,Text")] ChatMessage chatMessage, int? Club_id, int? Chat_id)
         {
-            ApplicationUser user = db.Users.FirstOrDefault();
-            Chat chat1 = db.Chat.Find(chat);
+            var userId = User.Identity.GetUserId();
+            Chat chat = db.Chat.Find(Chat_id);
+            ApplicationUser user = db.Users.Find(userId);
             if (ModelState.IsValid)
             {
-                chatMessage.Chat = chat1;
+                chatMessage.Chat = chat;
                 chatMessage.Date = DateTime.Now;
                 chatMessage.User = user;
                 db.ChatMessage.Add(chatMessage);
+
                 await db.SaveChangesAsync();
-                return RedirectToAction("Details","Chats", new { id = chat1.Id});
+                return RedirectToAction("ClubPage", "Home", new { id = Club_id});
             }
 
             return View(chatMessage);
         }
+
+  
 
         // GET: ChatMessages/Edit/5
         public async Task<ActionResult> Edit(int? id)
@@ -107,18 +112,21 @@ namespace BW.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Clubs = db.Clubs.ToList();
+            ViewBag.Chats = db.Chat.ToList();
             return View(chatMessage);
+
         }
 
         // POST: ChatMessages/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(int id, int? Clubs_ID)
         {
             ChatMessage chatMessage = await db.ChatMessage.FindAsync(id);
             db.ChatMessage.Remove(chatMessage);
             await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("ClubPage", "Home", new {id = Clubs_ID });
         }
 
         protected override void Dispose(bool disposing)

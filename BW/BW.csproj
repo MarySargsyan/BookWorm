@@ -346,6 +346,22 @@
     <Compile Include="Migrations\202103270632176_34.Designer.cs">
       <DependentUpon>202103270632176_34.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202103312305572_234.cs" />
+    <Compile Include="Migrations\202103312305572_234.Designer.cs">
+      <DependentUpon>202103312305572_234.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104120721581_fty.cs" />
+    <Compile Include="Migrations\202104120721581_fty.Designer.cs">
+      <DependentUpon>202104120721581_fty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104120732203_uiu.cs" />
+    <Compile Include="Migrations\202104120732203_uiu.Designer.cs">
+      <DependentUpon>202104120732203_uiu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104241758265_wtfid.cs" />
+    <Compile Include="Migrations\202104241758265_wtfid.Designer.cs">
+      <DependentUpon>202104241758265_wtfid.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -370,6 +386,7 @@
     <Content Include="images\fiction.png" />
     <Content Include="images\history.jpeg" />
     <Content Include="images\Scilence-fic.PNG" />
+    <Content Include="images\WiteIcon.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
@@ -458,6 +475,8 @@
     <Content Include="Views\sites\Details.cshtml" />
     <Content Include="Views\sites\Edit.cshtml" />
     <Content Include="Views\sites\Index.cshtml" />
+    <Content Include="Views\Home\ClubChat.cshtml" />
+    <Content Include="Views\Home\ClubNews.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -586,6 +605,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202103270632176_34.resx">
       <DependentUpon>202103270632176_34.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103312305572_234.resx">
+      <DependentUpon>202103312305572_234.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104120721581_fty.resx">
+      <DependentUpon>202104120721581_fty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104120732203_uiu.resx">
+      <DependentUpon>202104120732203_uiu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104241758265_wtfid.resx">
+      <DependentUpon>202104241758265_wtfid.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

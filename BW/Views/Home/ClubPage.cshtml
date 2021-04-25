@@ -1,180 +1,141 @@
-﻿@using BW.Models
+﻿
+@using BW.Models
 @model Clubs
 @{
     ViewBag.Title = "ClubPage";
 }
-
 <body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script>
         $(document).ready(function () {
-          
-            $("#openusersedit").click(function () {
-                $("#users").css("display", "none");
-                $("#editusers").css("display", "block");
 
-            });
-            $("#saveusers").click(function () {
-                $("#editusers").css("display", "none");
-                $("#users").css("display", "block");
+            $("#Chatbutton").click(function () {
+                $("#Chatbutton").addClass('active');
+                $("#Newsbutton").removeClass('active');
+                $("#news").css("display", "none");
+                $("#chat").css("display", "block");
+            })
+            $("#Newsbutton").click(function () {
+                $("#Newsbutton").addClass('active');
+                $("#Chatbutton").removeClass('active');
+                $("#chat").css("display", "none");
+                $("#news").css("display", "block");
+            })
 
-            });
 
         });
-
     </script>
+    <br class="my-4">
+    <div class="container">
+        <div class="row">
+            @*Карточка клуба*@
+            <div class="col-sm-3">
+                <div class="ui card">
 
+                    <img class="image" style=" height: 180px; " src="@Model.Image" />
+                    <div class="content">
+                        <div class="ui placeholder">
 
-    <div style="width:inherit" class="ui top banner test ad" data-text="">
-        <div class="image">
-            <img src=" @Html.DisplayFor(model => model.Image)" />
-        </div>
-    </div>
-    <div class="ui two column grid">
-        @*Информация+читаемая*@
-        <div class="ui twelve wide column">
-            <div class="ui segment">
-                <a href="~/Home/Edit/@Model.Id" style="text-decoration: none; color: black; float:right">
-                    <i class="big edit outline icon"></i>
-                </a>
-                <div class="ui two column grid">
-                    <div class="ui column">
-                        <i style="float: left; " class="grey huge @Html.DisplayFor(model => model.Icon)"></i>
-                        <h1 class="ui header">
-                            <div class="content">
-                                @Html.DisplayFor(model => model.Name)
-                                <div class="sub header">
-                                    @Html.DisplayFor(model => model.Discription)
-
-
+                            <div class="ui header">
+                                <i class="@Model.Icon"></i>
+                                <div class="content">
+                                    <div class="header">@Model.Name</div>
+                                    <div class="sub header">@Model.Discription</div>
                                 </div>
-                            </div>
-                        </h1>
-                    </div>
-                    <div class=" ui column">
-                        <h3 class="ui header">Читают:</h3>
-
-                        @foreach (Books books in Model.Books)
-                        {
-                            if (books.Id == Model.Readingbook)
-                            {
-                                <div>
-                                    <div class="ui label">
-                                        @books.Name
-                                    </div>
-
-                                </div>
-                            }
-                        }
-                    </div>
-                </div>
-
-               
-            </div>
-        </div>
-
-    <div class="ui four wide column">
-        <div class="ui segment">
-
-            <h3 class="ui header">
-                Прочтено:
-            </h3>
-            <div class="content">
-
-                @*Вывод почтенных книг*@
-                <div class="ui link list exbooks">
-
-                    @foreach (Books books in Model.Books)
-                    {
-                        if (books.Id != Model.Readingbook)
-                        {
-                        <a class="item" href="~/Books/Details/@books.Id">
-                            @books.Name
-                        </a>
-                        }
-                    }
-                </div>
-
-            </div>
-
-        </div>
-    </div>
-    </div>
- 
-
-
-    <div class="ui two column grid">
-            <div class="twelve wide column">
-                    @foreach (Post post in Model.Posts)
-                    {
-                        <div class="ui segment">
-                            <div class="ui fluid placeholder">
-                                <div class="image header">
-                                    <img class="ui mini circular image" style="float:left" src="@Model.Image">
-                                    <h3 class="ui header">
-                                        @Model.Name
-                                        <div class="ui sub header">
-                                            @post.Date
-                                        </div>
-                                    </h3>
-                                </div>
-                                <h2 class="ui header">
-                                    @post.Text
-                                </h2>
                             </div>
                         </div>
-                    }
 
-            </div>
-            <div class="four wide column">
-                <div class="ui segment">
-                    <h3 class="ui header">
-                        Участники:
-                    </h3>
-                    <button id="openusersedit" style="float: right" class="circular ui icon button">
-                        <i class="big edit icon"></i>
-                    </button>
+                    </div>
+                    <div class="sub content">
+                        <div class="header">Читают:</div>
+                        <div style="margin-top: 1em;" class="ui link list ">
 
-                    <div id="editusers" style="display: none">
-                        @using (Html.BeginForm())
-                        {
-                            @Html.HiddenFor(model => model.Id)
-                            foreach (ApplicationUser c in ViewBag.Users)
+                            @foreach (Books books in Model.Books)
                             {
-                                foreach (ApplicationUser user in Model.ApplicationUser)
+                                if (books.Id == Model.Readingbook)
                                 {
-                                    if (user.Id == c.Id)
-                                    {
-                                        <div class="ui checkbox">
-                                            <input name="selectedUsers" type="checkbox" value="@c.Id" @(Model.ApplicationUser.Contains(c) ? "checked=\"checked\"" : "") />
-                                            <label> @c.Email</label>
-                                        </div>
-                                    }
+                                    <a class="item" href="~/Books/Details/@books.Id">
+                                        @books.Name
+                                    </a>
                                 }
                             }
-                            <div class="ui basic buttons">
-                                <input type="submit" id="saveusers" class="ui button" value="Сохранить изменения">
-                            </div>
-                        }
+                        </div>
+
                     </div>
-
-                    <div id="users" style="display:block" class="ui middle aligned animated list">
-
-                        @foreach (ApplicationUser User in Model.ApplicationUser)
-                        {
-                            <a href="~/Account/Profil/@User.Id" style="color: gray">
-                                <div class="item">
-                                    <img style="float:left" class="ui avatar image" src="@User.Image">
-                                    <div class="sub header" style="text-align:inherit">
-                                        <div class="header">@User.Email</div>
-                                    </div>
-                               </div>
-                            </a>
-                            
-                        }
+                    <div class="ui bottom attached button" style="        background-color: #A79AF8;">
+                            <a style="text-decoration: none; color: white">
+                            <i class="big edit outline icon"></i>
+                            Редактировать
+                        </a>
                     </div>
                 </div>
-               
+                <div class="ui card">
+                    <div class="content">                 
+                        <div class="header">Прочтено @Model.Books.Count() книг</div>                       
+                            <div style="margin-top: 1em;" class="ui link list exbooks">
+
+                                @foreach (Books books in Model.Books)
+                                {
+                                    if (books.Id != Model.Readingbook)
+                                    {
+                                        <a class="item" href="~/Books/Details/@books.Id">
+                                            @books.Name
+                                        </a>
+                                    }
+                                }
+                            </div>
+                    </div>
+                    <div class="extra content">
+                        <span class="right floated like">
+                            Все книги
+                            <i class="external alternate icon"></i>
+
+                        </span>
+                    </div>
+                </div>
+                <div class="ui card">
+                    <div class="content">
+                        <div class="header">Участники (@Model.ApplicationUser.Count())</div>
+                        <div style="margin-top: 1em;">
+                            <div class="ui horizontal list">
+                                @foreach (ApplicationUser User in Model.ApplicationUser)
+                                {
+                                    <a class="item" href="~/Account/Profil/@User.Id" style="color: gray">
+                                        <img style="float:left" class="ui avatar image" src="@User.Image">
+                                    </a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="extra content">
+                        <span class="right floated like">
+                            Все участники
+                            <i class="external alternate icon"></i>
+
+                        </span>
+                    </div>
+                </div>
             </div>
+
+            <div class="col-sm-9">
+                <div class="ui segment">
+
+                    <br />
+                    <div class="ui secondary pointing menu">
+                        <a id="Newsbutton" class="active item">
+                            Новости
+                        </a>
+                        <a id="Chatbutton" class="item">
+                            Чат
+                        </a>
+
+
+                    </div>
+                    <div id="news">@Html.Partial("ClubNews")</div>
+                    <div id="chat" style="display: none">@Html.Partial("ClubChat")</div>
+
+                </div>
+            </div>
+        </div>
     </div>
 </body>

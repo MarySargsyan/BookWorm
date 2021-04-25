@@ -1,4 +1,3 @@
-C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.csproj.CoreCompileInputs.cache
 C:\Users\SL120\source\repos\BW\BW\bin\BW.dll.config
 C:\Users\SL120\source\repos\BW\BW\bin\BW.dll
 C:\Users\SL120\source\repos\BW\BW\bin\BW.pdb
@@ -70,6 +69,8 @@ C:\Users\SL120\source\repos\BW\BW\bin\Microsoft.Owin.Security.Twitter.dll
 C:\Users\SL120\source\repos\BW\BW\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\SL120\source\repos\BW\BW\bin\Newtonsoft.Json.dll
 C:\Users\SL120\source\repos\BW\BW\bin\Owin.dll
+C:\Users\SL120\source\repos\BW\BW\bin\PagedList.dll
+C:\Users\SL120\source\repos\BW\BW\bin\PagedList.Mvc.dll
 C:\Users\SL120\source\repos\BW\BW\bin\System.Net.Http.Formatting.dll
 C:\Users\SL120\source\repos\BW\BW\bin\System.Web.Helpers.dll
 C:\Users\SL120\source\repos\BW\BW\bin\System.Web.Http.dll
@@ -81,6 +82,10 @@ C:\Users\SL120\source\repos\BW\BW\bin\System.Web.WebPages.Deployment.dll
 C:\Users\SL120\source\repos\BW\BW\bin\System.Web.WebPages.dll
 C:\Users\SL120\source\repos\BW\BW\bin\System.Web.WebPages.Razor.dll
 C:\Users\SL120\source\repos\BW\BW\bin\WebGrease.dll
+C:\Users\SL120\source\repos\BW\BW\bin\EntityFramework.xml
+C:\Users\SL120\source\repos\BW\BW\bin\EntityFramework.SqlServer.xml
+C:\Users\SL120\source\repos\BW\BW\bin\PagedList.xml
+C:\Users\SL120\source\repos\BW\BW\bin\PagedList.Mvc.xml
 C:\Users\SL120\source\repos\BW\BW\bin\System.Web.Helpers.xml
 C:\Users\SL120\source\repos\BW\BW\bin\System.Web.Mvc.xml
 C:\Users\SL120\source\repos\BW\BW\bin\System.Web.Optimization.xml
@@ -93,8 +98,6 @@ C:\Users\SL120\source\repos\BW\BW\bin\Antlr3.Runtime.pdb
 C:\Users\SL120\source\repos\BW\BW\bin\System.Net.Http.Formatting.xml
 C:\Users\SL120\source\repos\BW\BW\bin\System.Web.Http.xml
 C:\Users\SL120\source\repos\BW\BW\bin\System.Web.Http.WebHost.xml
-C:\Users\SL120\source\repos\BW\BW\bin\EntityFramework.xml
-C:\Users\SL120\source\repos\BW\BW\bin\EntityFramework.SqlServer.xml
 C:\Users\SL120\source\repos\BW\BW\bin\Microsoft.AspNet.Identity.Core.xml
 C:\Users\SL120\source\repos\BW\BW\bin\Microsoft.AspNet.Identity.Owin.xml
 C:\Users\SL120\source\repos\BW\BW\bin\Microsoft.AspNet.Identity.EntityFramework.xml
@@ -108,6 +111,8 @@ C:\Users\SL120\source\repos\BW\BW\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\SL120\source\repos\BW\BW\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\SL120\source\repos\BW\BW\bin\Microsoft.Owin.Security.OAuth.xml
 C:\Users\SL120\source\repos\BW\BW\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\SL120\source\repos\BW\BW\bin\ru\EntityFramework.resources.dll
+C:\Users\SL120\source\repos\BW\BW\bin\ru\EntityFramework.SqlServer.resources.dll
 C:\Users\SL120\source\repos\BW\BW\bin\ru\System.Web.Helpers.resources.dll
 C:\Users\SL120\source\repos\BW\BW\bin\ru\System.Web.Mvc.resources.dll
 C:\Users\SL120\source\repos\BW\BW\bin\ru\System.Web.Optimization.resources.dll
@@ -118,8 +123,6 @@ C:\Users\SL120\source\repos\BW\BW\bin\ru\System.Web.WebPages.Razor.resources.dll
 C:\Users\SL120\source\repos\BW\BW\bin\ru\System.Net.Http.Formatting.resources.dll
 C:\Users\SL120\source\repos\BW\BW\bin\ru\System.Web.Http.resources.dll
 C:\Users\SL120\source\repos\BW\BW\bin\ru\System.Web.Http.WebHost.resources.dll
-C:\Users\SL120\source\repos\BW\BW\bin\ru\EntityFramework.resources.dll
-C:\Users\SL120\source\repos\BW\BW\bin\ru\EntityFramework.SqlServer.resources.dll
 C:\Users\SL120\source\repos\BW\BW\bin\ru\Microsoft.AspNet.Identity.Core.resources.dll
 C:\Users\SL120\source\repos\BW\BW\bin\ru\Microsoft.AspNet.Identity.Owin.resources.dll
 C:\Users\SL120\source\repos\BW\BW\bin\ru\Microsoft.AspNet.Identity.EntityFramework.resources.dll
@@ -130,11 +133,7 @@ C:\Users\SL120\source\repos\BW\BW\bin\ru\Microsoft.Owin.Security.Facebook.resour
 C:\Users\SL120\source\repos\BW\BW\bin\ru\Microsoft.Owin.Security.Google.resources.dll
 C:\Users\SL120\source\repos\BW\BW\bin\ru\Microsoft.Owin.Security.Twitter.resources.dll
 C:\Users\SL120\source\repos\BW\BW\bin\ru\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
-C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.csproj.CopyComplete
-C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.dll
-C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.pdb
 C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.Migrations._1.resources
-C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.csproj.GenerateResource.cache
 C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.Migrations._2.resources
 C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.Migrations._3.resources
 C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.Migrations._4.resources
@@ -156,10 +155,6 @@ C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.Migrations.postclubs.resources
 C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.Migrations.sites.resources
 C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.Migrations.icoforsite.resources
 C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.Migrations.roles.resources
-C:\Users\SL120\source\repos\BW\BW\bin\PagedList.dll
-C:\Users\SL120\source\repos\BW\BW\bin\PagedList.Mvc.dll
-C:\Users\SL120\source\repos\BW\BW\bin\PagedList.xml
-C:\Users\SL120\source\repos\BW\BW\bin\PagedList.Mvc.xml
 C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.Migrations.chat.resources
 C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.Migrations.chats.resources
 C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.Migrations.ch.resources
@@ -171,8 +166,17 @@ C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.Migrations.ghjk.resources
 C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.Migrations.fg.resources
 C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.Migrations.icons.resources
 C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.Migrations.fghj.resources
-C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.csprojAssemblyReference.cache
 C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.Migrations.gyg.resources
 C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.Migrations.rabotay_umolyayu.resources
 C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.Migrations._444.resources
 C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.Migrations._34.resources
+C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.Migrations._234.resources
+C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.Migrations.fty.resources
+C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.Migrations.uiu.resources
+C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.csproj.GenerateResource.cache
+C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.csproj.CoreCompileInputs.cache
+C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.csproj.CopyComplete
+C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.dll
+C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.pdb
+C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.csprojAssemblyReference.cache
+C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.Migrations.wtfid.resources

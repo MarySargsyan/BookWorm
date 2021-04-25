@@ -39,8 +39,6 @@ namespace BW.Controllers
         // GET: sites/Create
         public ActionResult Create()
         {
-            SelectList icons = new SelectList(db.Networkicons, "Id", "ico");        
-            ViewBag.Icons = icons;
             return View();
         }
 
@@ -49,7 +47,7 @@ namespace BW.Controllers
         // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "id,url,networkicon")] site site)
+        public async Task<ActionResult> Create([Bind(Include = "id,url,icon")] site site)
         {
             if (ModelState.IsValid)
             {

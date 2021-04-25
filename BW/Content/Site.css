@@ -1,6 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color: #F4F5FA;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -21,4 +22,24 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+.mybutton {
+    position: absolute;
+    width: 117px;
+    height: 35px;
+    border-radius: 23px;
+    color: #F4F5FA;
+}
+.Pry {
+    background: #725EF2;
+}
+.Sec {
+    border: 1px solid #F4F5FA;
+    box-sizing: border-box;
+    background: transparent;
+
+}
+a {
+    color: #337ab7;
 }

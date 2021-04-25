@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -22,6 +23,7 @@ namespace BW.Models
         public string City { get; set; }
         public string about { get; set; }
         public string Image { get; set; }
+
         public DateTime? LoginTime { get; set; }
         public DateTime? LastPing { get; set; }
 
@@ -35,7 +37,11 @@ namespace BW.Models
         public virtual ICollection<Friends> Friend { get; set; }
         public virtual ICollection<site> Sites { get; set; }
         public virtual ICollection<Chat> Chats { get; set; } 
-        public virtual ICollection<ChatMessage> Messages { get; set; } 
+        public virtual ICollection<ChatMessage> Messages { get; set; }
+
+        public byte[] ImageData { get; set; }
+        public string ImageMimeType { get; set; }
+
         public ApplicationUser()
         {
             Clubs = new List<Clubs>();
@@ -113,7 +119,7 @@ namespace BW.Models
         public virtual ICollection<Books> Books { get; set; }
         public virtual ICollection<ApplicationUser> ApplicationUser { get; set; }
         public virtual ICollection<Post> Posts { get; set; }
-
+         public Chat chat { get; set; }
 
 
         public Clubs()
@@ -134,7 +140,6 @@ public class Chat
     public string Name { get; set; }
     public virtual ICollection<ApplicationUser> ChatUser { get; set; }
     public virtual ICollection<ChatMessage> Messages { get; set; } // все сообщения
-    
     public Chat()
     {
         Messages = new List<ChatMessage>();
@@ -170,21 +175,12 @@ public class site
 {
     public int id { get; set; }
     public string url { get; set; }
+    public string icon { get; set; }
+
     public ApplicationUser User { get; set; }
-    public networkicon networkicon { get; set; }
 }
 
-public class networkicon
-{
-    public int id { get; set; }
-    public string name { get; set; }
-    public string ico { get; set; }
-    public virtual ICollection<site> Sites { get; set; }
-    public networkicon()
-    {
-        Sites = new List<site>();
-    }
-}
+
 public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 {
     public DbSet<Post> Posts { get; set; } 
@@ -195,7 +191,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<Tags> Tags { get; set; }
     public DbSet<Friends> Friends { get; set; }
     public DbSet<site> Sites { get; set; }
-    public DbSet<networkicon> Networkicons { get; set; }
     public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
     {

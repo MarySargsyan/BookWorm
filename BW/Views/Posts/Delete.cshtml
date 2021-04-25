@@ -1,17 +1,26 @@
-﻿@model Post
+﻿@using BW.Models
 
+@model Post
 @{
     ViewBag.Title = "Delete";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Delete</h2>
-
 <h3>Вы действительно хотите удалить эту запись?</h3>
 <div>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
+
+        foreach (Clubs c in ViewBag.Clubs)
+        {
+            if (c.Posts.Contains(Model))
+            {
+                <input type="hidden" name="Club_ID" value="@c.Id" />
+
+            }
+        }
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |

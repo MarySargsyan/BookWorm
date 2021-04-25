@@ -441,7 +441,6 @@ namespace BW.Controllers
                 return HttpNotFound();
             }
             ViewBag.Posts = context.Posts.ToList().OrderByDescending(s=> s.Date);
-            ViewBag.ico = context.Networkicons.ToList();
             ViewBag.user = context.Users.ToList();
 
             return View(user);
@@ -566,10 +565,6 @@ namespace BW.Controllers
             }
             return View(post);
         }
-
-        // POST: Posts/Edit/5
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> EditPosts([Bind(Include = "Id,Date,Text,Image")] Post post)
@@ -582,6 +577,7 @@ namespace BW.Controllers
             }
             return View(post);
         }
+
         public async Task<ActionResult> Edit(string id)
         {
             if (id == null)
@@ -594,7 +590,6 @@ namespace BW.Controllers
                 return HttpNotFound();
             }
             ViewBag.Sites = context.Sites.ToList();
-            ViewBag.Icons = context.Networkicons.ToList();
             return View(user);
 
         }
@@ -604,7 +599,7 @@ namespace BW.Controllers
         // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(ApplicationUser user, int[] sites)
+        public ActionResult Edit(ApplicationUser user, int[] sites, HttpPostedFileBase image = null)
         {
             ApplicationUser user1 = context.Users.Find(user.Id);
             user1.City = user.City;
@@ -612,15 +607,37 @@ namespace BW.Controllers
             user1.PhoneNumber = user.PhoneNumber;
             user1.UserName = user.PhoneNumber;
             user1.Email = user.Email;
+            if (image != null)
+            {
+                user1.ImageMimeType = image.ContentType;
+                user1.ImageData = new byte[image.ContentLength];
+                image.InputStream.Read(user1.ImageData, 0, image.ContentLength);
+            }
 
-          
+
             if (ModelState.IsValid)
             {
                 context.SaveChanges();
+                TempData["message"] = string.Format("Изменения были сохранены");
                 return RedirectToAction("MyProfil");
             }
             return View(user);
-        } 
+        }
+
+        public FileContentResult GetImage(string id)
+        {
+            ApplicationUser user = context.Users
+                .FirstOrDefault(g => g.Id == id);
+
+            if (user != null)
+            {
+                return File(user.ImageData, user.ImageMimeType);
+            }
+            else
+            {
+                return null;
+            }
+        }
 
         public ActionResult NewFriend(string friendid)
         {

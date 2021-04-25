@@ -1,4 +1,5 @@
 ﻿@model ChatMessage
+@using BW.Models
 
 @{
     ViewBag.Title = "Delete";
@@ -28,22 +29,29 @@
             @Html.DisplayFor(model => model.Text)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ApplicationUserId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ApplicationUserId)
-        </dd>
-
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
+        //foreach (Chat chat in ViewBag.Chats)
+        //{
+        //    if (chat.Messages.Contains(Model))
+        //    {
+        //        Chat chat1 = chat;
+        foreach (Clubs clubs in ViewBag.Clubs)
+        {
+            if (clubs.chat == Model.Chat)
+            {
+              <input type="hidden" name="Clubs_ID" value="@clubs.Id">
 
+            }
+        }
+            @*}
+        }*@
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+
         </div>
     }
 </div>
