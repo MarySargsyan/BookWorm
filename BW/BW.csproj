@@ -362,6 +362,10 @@
     <Compile Include="Migrations\202104241758265_wtfid.Designer.cs">
       <DependentUpon>202104241758265_wtfid.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104271407356_vu.cs" />
+    <Compile Include="Migrations\202104271407356_vu.Designer.cs">
+      <DependentUpon>202104271407356_vu.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -617,6 +621,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104241758265_wtfid.resx">
       <DependentUpon>202104241758265_wtfid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104271407356_vu.resx">
+      <DependentUpon>202104271407356_vu.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
