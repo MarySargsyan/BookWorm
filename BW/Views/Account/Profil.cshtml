@@ -36,21 +36,26 @@
 
                     <div class="item">
                         <div class="ui large horizontal divided list">
-                            @foreach (site site in Model.Sites)
+                            @foreach (site c in Model.Sites)
                             {
-                                <div class="item">
-                                    <a style="color: gray" href="@site.url"> <i class="@site.icon."></i></a>
-                                </div>
-                            }
+                                foreach (networkicon i in ViewBag.Icons)
+                                {
+                                    if (i.id == c.networkicon.id)
+                                    {
+                                        <div class="item">
+                                            <a style="color: gray" href="@c.url">
+                                                <i class="@c.networkicon.ico"></i>
+                                            </a>
+                                        </div>
+                                    }
 
+                                }
+                            }
+                            
                         </div>
                     </div>
                 </div>
-
-                <p>
-                    @Html.ActionLink("Редактировать", "Edit", new { id = Model.Id }) |  @Html.ActionLink("Настройки", "Index", "Manage", routeValues: null, htmlAttributes: new { id = "loginLink" })
-
-                </p>
+              
                 <div class="ui primary button">
                     @Html.ActionLink("Добавить в друзья", "NewFriend", new { friendid = Model.Id }, new { style = "color:white" })
                 </div>
@@ -128,22 +133,7 @@
 
 
             </div>
-            <div class="ui segment">
-                @using (Html.BeginForm("Create", "Posts", FormMethod.Post))
-                {<div class="ui form">
-
-                        @Html.AntiForgeryToken()
-                        <div class="field">
-                            <image class="ui mini circular image" style="float:left" src="@Model.Image" />
-
-                            <textarea style="margin-left: 10px" name="Text" placeholder="Введите текст публикации"></textarea>
-                            <input class="ui button" type="submit" value="Публиковать" />
-                        </div>
-
-
-                    </div>
-                }
-            </div>
+           
 
             @foreach (Post post in ViewBag.Posts)
             {
@@ -151,9 +141,7 @@
                 {
 
                     <div class="ui segment">
-                        <a href="~/Account/EditPosts/@post.Id" style="text-decoration: none; color: black; float:right">
-                            <i class="big edit outline icon"></i>
-                        </a>
+                     
                         <div class="ui fluid placeholder">
                             <div class="image header">
                                 <img class="ui mini circular image" style="float:left" src="@Model.Image">

@@ -366,6 +366,18 @@
     <Compile Include="Migrations\202104271407356_vu.Designer.cs">
       <DependentUpon>202104271407356_vu.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104290804397_pliznu.cs" />
+    <Compile Include="Migrations\202104290804397_pliznu.Designer.cs">
+      <DependentUpon>202104290804397_pliznu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104290822284_nuuu.cs" />
+    <Compile Include="Migrations\202104290822284_nuuu.Designer.cs">
+      <DependentUpon>202104290822284_nuuu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105021138007_bookimg.cs" />
+    <Compile Include="Migrations\202105021138007_bookimg.Designer.cs">
+      <DependentUpon>202105021138007_bookimg.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -385,6 +397,8 @@
     <Content Include="images\Avs\DefaultImg.jpg" />
     <Content Include="images\Avs\Mary.png" />
     <Content Include="images\Avs\Vlad.png" />
+    <Content Include="images\bimg.svg" />
+    <Content Include="images\Bookimg.png" />
     <Content Include="images\BW.png" />
     <Content Include="images\favicon.png" />
     <Content Include="images\fiction.png" />
@@ -481,6 +495,9 @@
     <Content Include="Views\sites\Index.cshtml" />
     <Content Include="Views\Home\ClubChat.cshtml" />
     <Content Include="Views\Home\ClubNews.cshtml" />
+    <Content Include="Views\Account\MyProfil.cshtml" />
+    <Content Include="Views\Home\MyClub.cshtml" />
+    <Content Include="Views\Home\MyClubNews.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -624,6 +641,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104271407356_vu.resx">
       <DependentUpon>202104271407356_vu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104290804397_pliznu.resx">
+      <DependentUpon>202104290804397_pliznu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104290822284_nuuu.resx">
+      <DependentUpon>202104290822284_nuuu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105021138007_bookimg.resx">
+      <DependentUpon>202105021138007_bookimg.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

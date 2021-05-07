@@ -57,6 +57,27 @@ namespace BW.Controllers
 
         public ActionResult Clubpage(int? id)
         {
+            var userId = User.Identity.GetUserId();
+            Clubs clubs = context.Clubs.Find(id);
+
+            if (id == null) return RedirectToAction("Index");
+            if (clubs == null)
+            {
+                return HttpNotFound();
+            }
+            if(clubs.Admin == userId)
+            {
+                return RedirectToAction("MyClub", new { id = id});
+            }
+            ViewBag.Posts = context.Posts.ToList().OrderByDescending(s => s.Date);
+
+            ViewBag.Books = context.Books.ToList();
+            ViewBag.Users = context.Users.ToList();
+            ViewBag.Chats = context.Chat.ToList();
+            return View(clubs);
+        }
+        public ActionResult MyClub(int? id)
+        {
             Clubs clubs = context.Clubs.Find(id);
             if (id == null) return RedirectToAction("Index");
             if (clubs == null)
@@ -71,32 +92,7 @@ namespace BW.Controllers
             return View(clubs);
         }
 
-        [HttpPost]
-        public ActionResult Clubpage(Clubs clubs, int[] selectedBooks, string[] selectedUsers)
-        {
-            Clubs newclub = context.Clubs.Find(clubs.Id);
-            newclub.Books.Clear();
-            newclub.ApplicationUser.Clear();
-            if (selectedBooks != null)
-            {
-                //получаем выбранные книги
-                foreach (var c in context.Books.Where(co => selectedBooks.Contains(co.Id)))
-                {
-                    newclub.Books.Add(c);
-                }
-            }
-            if (selectedUsers != null)
-            {
-                foreach (var c in context.Users.Where(co => selectedUsers.Contains(co.Id)))
-                {
-                    newclub.ApplicationUser.Add(c);
-                }
-            }
-
-            context.Entry(newclub).State = EntityState.Modified;
-            context.SaveChanges();
-            return RedirectToAction("ClubPage");
-        }
+        
         [HttpGet]
         public ActionResult DeleteClub(int? id)
         {
@@ -159,6 +155,24 @@ namespace BW.Controllers
             return RedirectToAction("Clubpage", "Home");
 
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Create(Clubs clubs)
+        {
+            if (ModelState.IsValid)
+            {
+                clubs.Name = " ";
+                clubs.Discription = " ";
+                context.Clubs.Add(clubs);
+                await context.SaveChangesAsync();
+                return RedirectToAction("Edit", new { id = clubs.Id });
+
+            }
+
+            return View(clubs);
+        }
+
 
 
         public ActionResult Bookadd(string searchString, Clubs clubs)
@@ -232,6 +246,42 @@ namespace BW.Controllers
                 return HttpNotFound();
             }
             return PartialView();
+
+        } 
+        public ActionResult MyClubNews(int? id)
+        {
+            Clubs clubs = context.Clubs.Find(id);
+            if (id == null) return RedirectToAction("Index");
+            if (clubs == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView();
+
+        }
+
+        public ActionResult Join(int? id)
+        {
+            var userId = User.Identity.GetUserId();
+            ApplicationUser user = context.Users.Find(userId);
+            Clubs clubs = context.Clubs.Find(id);
+            clubs.ApplicationUser.Add(user);
+            context.SaveChanges();
+
+            return RedirectToAction("ClubPage", new { id = id });
+
+
+        }
+        public ActionResult left(int? id)
+        {
+            Clubs clubs = context.Clubs.Find(id);
+
+            var userId = User.Identity.GetUserId();
+            ApplicationUser user = context.Users.Find(userId);
+            clubs.ApplicationUser.Remove(user);
+            context.SaveChanges();
+
+            return RedirectToAction("ClubPage", new { id = id});
 
         }
 

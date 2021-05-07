@@ -14,18 +14,16 @@
     @Html.AntiForgeryToken()
 <div class="ui form">
 
-    @*<select class="form-control form-control-lg">
+    <select name="network" class="form-control form-control-lg">
         @foreach (networkicon networkicon in ViewBag.Icons)
         {
-            <option>
-                <i class="@networkicon.ico"></i>
+            <option value="@networkicon.id">
                 @networkicon.name
             </option>
 
         }
-    </select>*@
+    </select>
 
-    @Html.DropDownListFor(model => model.icon, ViewBag.Icons as SelectList)
 
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })

@@ -46,14 +46,16 @@
 @using (Html.BeginForm("bookadd", "Home", FormMethod.Post))
 {
     <fieldset>
-        <div class="ui cards">
+        <div class="centered ui cards">
 
             @foreach (Books book in ViewBag.Books)
             {
-                <a style="text-decoration: none; margin-top: 14px; text-align: center ; color: black" href="~/Books/Details/@book.Id">
+                <a style="text-decoration: none; margin-top: 1em; text-align: center ; color: black" href="~/Books/Details/@book.Id">
 
-                    <div class="card">
-                        <div class="content" style="height: 60px">
+                    <div class="ui card">
+                        <img class="image" style="background-color:white; height: 80px; " src="@book.img" />
+
+                        <div  class="content" style="height: 60px;">
                             <h4 class="header">
                                 @book.Name
                             </h4>
@@ -61,7 +63,7 @@
 
                         <div class="ui bottom attached button">
                             <i class="add icon"></i>
-                            <input type="submit" value="Выбрать" />
+                            <input type="submit" value="Выбрать" style="border:none; background-color:transparent"/>
 
                         </div>
 

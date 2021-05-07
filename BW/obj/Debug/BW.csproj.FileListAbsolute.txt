@@ -174,10 +174,13 @@ C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.Migrations._234.resources
 C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.Migrations.fty.resources
 C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.Migrations.uiu.resources
 C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.Migrations.wtfid.resources
+C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.Migrations.vu.resources
+C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.Migrations.pliznu.resources
+C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.Migrations.nuuu.resources
 C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.csproj.GenerateResource.cache
 C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.csproj.CoreCompileInputs.cache
 C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.csproj.CopyComplete
 C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.dll
 C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.pdb
-C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.Migrations.vu.resources
 C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.csprojAssemblyReference.cache
+C:\Users\SL120\source\repos\BW\BW\obj\Debug\BW.Migrations.bookimg.resources

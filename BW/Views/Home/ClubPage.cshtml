@@ -62,28 +62,27 @@
                         </div>
 
                     </div>
-                    <div class="ui bottom attached button" style="        background-color: #A79AF8;">
-                            <a style="text-decoration: none; color: white">
-                            <i class="big edit outline icon"></i>
-                            Редактировать
-                        </a>
-                    </div>
+              
                 </div>
-                <div class="ui card">
-                    <div class="content">                 
-                        <div class="header">Прочтено @Model.Books.Count() книг</div>                       
-                            <div style="margin-top: 1em;" class="ui link list exbooks">
+                <p>
+                    @Html.ActionLink("Вступить", "Join", new { id = Model.Id }) |  @Html.ActionLink("Покинуть", "Left", new { id = Model.Id })
 
-                                @foreach (Books books in Model.Books)
+                </p>
+                <div class="ui card">
+                    <div class="content">
+                        <div class="header">Прочтено @Model.Books.Count() книг</div>
+                        <div style="margin-top: 1em;" class="ui link list exbooks">
+
+                            @foreach (Books books in Model.Books)
+                            {
+                                if (books.Id != Model.Readingbook)
                                 {
-                                    if (books.Id != Model.Readingbook)
-                                    {
-                                        <a class="item" href="~/Books/Details/@books.Id">
-                                            @books.Name
-                                        </a>
-                                    }
+                                    <a class="item" href="~/Books/Details/@books.Id">
+                                        @books.Name
+                                    </a>
                                 }
-                            </div>
+                            }
+                        </div>
                     </div>
                     <div class="extra content">
                         <span class="right floated like">

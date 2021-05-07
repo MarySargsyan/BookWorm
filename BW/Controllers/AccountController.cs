@@ -428,18 +428,29 @@ namespace BW.Controllers
         }
         public ActionResult MyProfil()
         {
-            var userId = User.Identity.GetUserId();
+            var userr = User.Identity.GetUserId();
+            ApplicationUser user = context.Users.Find(userr);
 
-            return RedirectToAction("Profil", new { id = userId });
-
+            ViewBag.Icons = context.Networkicons.ToList();
+            ViewBag.Posts = context.Posts.ToList().OrderByDescending(s => s.Date);
+            ViewBag.user = context.Users.ToList();
+            return View(user);
         }
         public ActionResult Profil(string id)
         {
+            var myid = User.Identity.GetUserId();
+            ApplicationUser me = context.Users.Find(myid);
+
             ApplicationUser user = context.Users.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
             }
+            if(user == me)
+            {
+                return RedirectToAction("MyProfil");
+            }
+            ViewBag.Icons = context.Networkicons.ToList();
             ViewBag.Posts = context.Posts.ToList().OrderByDescending(s=> s.Date);
             ViewBag.user = context.Users.ToList();
 
@@ -447,7 +458,7 @@ namespace BW.Controllers
         }
 
         [HttpPost]
-        public ActionResult Profil(bool? logOn, bool? Logoff, ApplicationUser user, int[] selectedBooks, string[] selectedClubs)
+        public ActionResult Profil(bool? logOn, bool? Logoff, ApplicationUser user)
         {
             ApplicationUser newuser = context.Users.Find(user.Id);
             newuser.Posts.Clear();
@@ -456,46 +467,7 @@ namespace BW.Controllers
             return RedirectToAction("Profil");
         }
 
-        public ActionResult Chats()
-        {
-            var userId = User.Identity.GetUserId();
-
-
-            ApplicationUser user = context.Users.Find(userId);
-            if (userId == " ") return RedirectToAction("Profil");
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
-        }
-
-        public ActionResult Chat(int? id)
-        {
-            Chat chat = context.Chat.Find(id);
-            var userId = User.Identity.GetUserId();
-            ApplicationUser user = context.Users.Find(userId);
-            if (userId == " ") return RedirectToAction("Profil");
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.Chat = context.Chat.Where(c => c.Id == chat.Id);
-            ViewBag.Messages = context.ChatMessage.ToList().OrderByDescending(s => s.Date);
-            ViewBag.Users = context.Users.ToList();
-            return PartialView(user);
-        }
-
-        [HttpPost]
-        public ActionResult Chat(bool? logOn, bool? Logoff, ApplicationUser user)
-        {
-            ApplicationUser newuser = context.Users.Find(user.Id);
-            newuser.Messages.Clear();
-            context.Entry(newuser).State = EntityState.Modified;
-            context.SaveChanges();
-            return RedirectToAction("Profil");
-        }
-
+       
         public async Task<ActionResult> DelPost(int? id)
         {
             if (id == null)
@@ -589,6 +561,7 @@ namespace BW.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Icons = context.Networkicons.ToList();
             ViewBag.Sites = context.Sites.ToList();
             return View(user);
 
@@ -647,8 +620,7 @@ namespace BW.Controllers
             
             Friends friends = new Friends();
             friends.User.Add(friend);
-            friends.User.Add(user1);
-
+            friends.User.Add(user1);           
             context.Friends.Add(friends);
             if (ModelState.IsValid)
             {

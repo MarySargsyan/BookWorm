@@ -19,7 +19,6 @@ namespace BW.Models
             return userIdentity;
         }
 
-        //public DateTime? BirthDate { get; set; }
         public string City { get; set; }
         public string about { get; set; }
         public string Image { get; set; }
@@ -63,6 +62,7 @@ namespace BW.Models
         public string Discription { get; set; }
         public double Raiting { get; set; }
         public string Link { get; set; }
+        public string img { get; set; }
         
         public virtual ICollection<Clubs> Clubs { get; set; }
         public virtual ICollection<Tags> Tags { get; set; }
@@ -175,12 +175,22 @@ public class site
 {
     public int id { get; set; }
     public string url { get; set; }
-    public string icon { get; set; }
 
     public ApplicationUser User { get; set; }
+    public networkicon networkicon { get; set; }
 }
 
-
+public class networkicon
+{
+    public int id { get; set; }
+    public string name { get; set; }
+    public string ico { get; set; }
+    public virtual ICollection<site> Sites { get; set; }
+    public networkicon()
+    {
+        Sites = new List<site>();
+    }
+}
 public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 {
     public DbSet<Post> Posts { get; set; } 
@@ -191,6 +201,8 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<Tags> Tags { get; set; }
     public DbSet<Friends> Friends { get; set; }
     public DbSet<site> Sites { get; set; }
+    public DbSet<networkicon> Networkicons { get; set; }
+
     public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
     {

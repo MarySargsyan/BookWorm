@@ -41,7 +41,7 @@
         border:none;
         margin-bottom: 3px;
         margin-left: -2px;
-        border-color: #725EF2" *@
+        border-color: #725EF2"
                 class="ui icon button">
             <i class="large search icon"></i>
         </button>
@@ -50,14 +50,16 @@
     <div class="ui horizontal divider">
         Или
     </div>
-    <a href="~/Clubs/Create" style="
-        border-radius: 23px;
-        background-color: #F4F5FA;
-        color:black;" class="ui teal labeled icon button">
-        Создать новый клуб
-        <i class="add icon"></i>
-    </a>
-</div>
+
+    @using (Html.BeginForm("Create", "Home", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <input style="border-radius: 23px;background-color: #725EF2;
+        color: white; border: none; height: 3em; width: 15em"
+       type="submit" value="Создать новый клуб" />
+
+
+    }
 <br />
 
 
