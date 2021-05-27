@@ -21,13 +21,17 @@
 
                         <div class="editor-field">
                             @Html.EditorFor(model => model.Name)
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+
                         </div>
 
-                    <div class="editor-field field">
-                        <label>Описание</label>
-                        @Html.EditorFor(model => model.Discription, new { htmlAttributes = new { @class = "", @cols = 35, @rows = 3 } })
+                        <div class="editor-field field">
+                            <label>Описание</label>
+                            @Html.EditorFor(model => model.Discription, new { htmlAttributes = new { @class = "", @cols = 35, @rows = 3 } })
+                            @Html.ValidationMessageFor(model => model.Discription, "", new { @class = "text-danger" })
 
-                    </div>
+
+                        </div>
                 </div>
                 <div class="ui column">
                     <div class="ui card">

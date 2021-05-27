@@ -41,7 +41,20 @@ namespace BW.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Posts = context.Posts.ToList().OrderByDescending(s => s.Date);
+
+            var post = from p in context.Posts
+                       orderby p.Date
+                       select p;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                post = (IOrderedQueryable<Post>)post.Where(s => s.Text.Contains(searchString) |
+                s.User.UserName.Contains(searchString)| 
+                s.Clubs.Name.Contains(searchString));
+            }
+            //ViewBag.Posts = context.Posts.ToList().OrderByDescending(s => s.Date);
+            ViewBag.Posts = post.ToList().OrderByDescending(s => s.Date);
+
             return View(user);
         }
         [HttpPost]
@@ -143,7 +156,6 @@ namespace BW.Controllers
             newclub.Tags.Clear();
             if (selectedTags != null)
             {
-                //получаем выбранные тэги
                 foreach (var c in context.Tags.Where(co => selectedTags.Contains(co.Id)))
                 {
                     newclub.Tags.Add(c);
@@ -152,7 +164,8 @@ namespace BW.Controllers
 
             context.Entry(newclub).State = EntityState.Modified;
             context.SaveChanges();
-            return RedirectToAction("Clubpage", "Home");
+       
+                return RedirectToAction("Clubpage", "Home");
 
         }
 
@@ -160,10 +173,14 @@ namespace BW.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(Clubs clubs)
         {
+            var userr = User.Identity.GetUserId();
             if (ModelState.IsValid)
             {
+
                 clubs.Name = " ";
                 clubs.Discription = " ";
+                clubs.Image = "/Images/Clubimg.jpg";
+                clubs.Admin = userr;
                 context.Clubs.Add(clubs);
                 await context.SaveChangesAsync();
                 return RedirectToAction("Edit", new { id = clubs.Id });
@@ -285,5 +302,25 @@ namespace BW.Controllers
 
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> PostInNews([Bind(Include = "Id,Date,Text,Image")] Post post)
+        {
+            var userId = User.Identity.GetUserId();
+
+
+            ApplicationUser user = context.Users.Find(userId);
+            if (ModelState.IsValid)
+            {
+                post.Date = DateTime.Now;
+                post.User = user;
+                context.Posts.Add(post);
+
+                await context.SaveChangesAsync();
+                return RedirectToAction("News");
+            }
+
+            return View(post);
+        }
     }
 }

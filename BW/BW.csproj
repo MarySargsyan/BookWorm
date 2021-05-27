@@ -400,6 +400,7 @@
     <Content Include="images\bimg.svg" />
     <Content Include="images\Bookimg.png" />
     <Content Include="images\BW.png" />
+    <Content Include="images\Clubimg.jpg" />
     <Content Include="images\favicon.png" />
     <Content Include="images\fiction.png" />
     <Content Include="images\history.jpeg" />

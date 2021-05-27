@@ -4,78 +4,87 @@
 <div class="ui segment">
     <div class="container">
         <div class="row">
-            <div class="col-sm-4">
-                <h4>Чат клуба</h4>
-                <h5> @Model.chat.Name</h5>
-                <br />
-                <div class="ui small comments">
-                    <div class="container">
+            @if (Model.chat != null)
+            {
+                <div class="col-sm-4">
+                    <h4>Чат клуба</h4>
 
-                        @foreach (ChatMessage message in Model.chat.Messages)
-                        {
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <div class="comment">
-                                        <a class="avatar" href="~/Account/Profil/@message.User.Id">
-                                            <img src="@message.User.Image">
-                                        </a>
-                                        <div class="content">
-                                            <a style="text-decoration:none; color:black" class="author" href="~/Account/@message.User.Id">
-                                                @message.User.UserName
+                    <h5> @Model.chat.Name</h5>
+                    <br />
+                    <div class="ui small comments">
+                        <div class="container">
+
+                            @foreach (ChatMessage message in Model.chat.Messages)
+                            {
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="comment">
+                                            <a class="avatar" href="~/Account/Profil/@message.User.Id">
+                                                <img src="@message.User.Image">
                                             </a>
-                                            <div class="metadata">
-                                                <span class="date">
-                                                    @message.Date
-                                                </span>
-                                            </div>
+                                            <div class="content">
+                                                <a style="text-decoration:none; color:black" class="author" href="~/Account/@message.User.Id">
+                                                    @message.User.UserName
+                                                </a>
+                                                <div class="metadata">
+                                                    <span class="date">
+                                                        @message.Date
+                                                    </span>
+                                                </div>
 
-                                            <div class="text">
-                                                @message.Text
+                                                <div class="text">
+                                                    @message.Text
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-sm-1">
-                                    <div class="btn-group">
-                                        <button style="background-color: transparent; border-color:transparent" type="button" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="ellipsis vertical icon"></i>
-                                        </button>
-                                        <div class="ui dropdown-menu">
-                                            <a style="color: black; text-decoration:none; margin-left: 3%" class="ui item" href="~/ChatMessages/Delete/@message.Id">Удалить</a>
-                                            @*<a class="dropdown-item" href="#">Another action</a>*@
+                                    <div class="col-sm-1">
+                                        <div class="btn-group">
+                                            <button style="background-color: transparent; border-color:transparent" type="button" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="ellipsis vertical icon"></i>
+                                            </button>
+                                            <div class="ui dropdown-menu">
+                                                <a style="color: black; text-decoration:none; margin-left: 3%" class="ui item" href="~/ChatMessages/Delete/@message.Id">Удалить</a>
+                                                @*<a class="dropdown-item" href="#">Another action</a>*@
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
+                                </div>
+                                <br />
+                            }
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="ui form">
+
+                        @using (Html.BeginForm("Create", "ChatMessages",
+                    new { Club_id = Model.Id, Chat_id = Model.chat.Id }, FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="field">
+                                <textarea name="Text"></textarea>
                             </div>
-                            <br />
+                            <div class="field">
+                                <input class="ui button" type="submit" value="Отправить" />
+                            </div>
+                            @*<div class="ui submit icon button">
+                            <i class="location arrow icon"></i>
+                        </div>*@
                         }
                     </div>
                 </div>
+
+            }
+            else
+            {
+                <h2>Чат ещё не создан :(</h2>
+                
+            }
             </div>
-
-            <div class="col-sm-3">
-                <div class="ui form">
-
-                    @using (Html.BeginForm("Create", "ChatMessages",
-                        new { Club_id = Model.Id, Chat_id = Model.chat.Id }, FormMethod.Post))
-                    {
-                        @Html.AntiForgeryToken()
-
-                        <div class="field">
-                            <textarea name="Text"></textarea>
-                        </div>
-                        <div class="field">
-                            <input class="ui button" type="submit" value="Отправить" />
-                        </div>
-                        @*<div class="ui submit icon button">
-                                <i class="location arrow icon"></i>
-                            </div>*@
-                    }
-                </div>
-            </div>
-
-
-        </div>
     </div>
 </div>

@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BW.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BW.Controllers
 {
@@ -45,6 +46,11 @@ namespace BW.Controllers
         {
             if (ModelState.IsValid)
             {
+                clubs.Admin = User.Identity.GetUserId();
+                clubs.Image = "/images/Clubimg.png";
+                Chat chat = new Chat();
+                db.Chat.Add(chat);
+                clubs.chat = chat;
                 db.Clubs.Add(clubs);
                 await db.SaveChangesAsync();
                 return RedirectToAction("ClubPage", "Home", new { id = clubs.Id });

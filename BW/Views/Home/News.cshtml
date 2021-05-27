@@ -4,61 +4,123 @@
     ViewBag.Title = "News";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="row justify-content-md-center bg-secondary"
+     style="        background-color: #D1BAFF;
+        margin-top: 1em;">
 
-@*<h2>News</h2>
-    <form asp-controller="Home" asp-action="News" class="ui input">
-        <input type="text" name="SearchString" placeholder="Поиск...">
-        <button style="background-color: rgba(51, 51, 51, 1);
-            color: #9D9D9D;" class="ui icon button">
-            <i class="search icon"></i>
-        </button>
-    </form>*@
-@foreach (Post post in ViewBag.Posts)
-{
-    if (Model.Posts.Contains(post))
-    {
-
-        <div class="ui segment">
-            <a href="~/Account/EditPosts/@post.Id" style="text-decoration: none; color: black; float:right">
-                <i class="big edit outline icon"></i>
-            </a>
-            <div class="ui fluid placeholder">
-                <div class="image header">
-                    <a class="ui mini circular image" style="float:left" href="~/Account/Profil/@post.User.Id">
-                        <img style="height: 28px; width: 28px" src="@post.User.Image">
-                    </a>
-                    <h3 class="ui header">
-                        @post.User.UserName
-                        <div class="ui sub header">
-                            @post.Date
-                        </div>
-                    </h3>
+    <div class="container" style="color: black;margin-top: 3em">
+            <div class="row">
+                <div class="col-sm-9">
+                    <h1 style="color: black; font-weight: bold; text-align: center" class="display-4">НОВОСТИ</h1>
+                    <hr style="
+                    width: 67%;
+                    float: left;
+                    border-style: solid;
+                    border-width: 2px;
+                    border-color: black;
+                    background-color:black"/>
                 </div>
-                <h2 class="ui header">
-                    @post.Text
-                </h2>
+                <div class="col-sm-3">
+                    <form asp-controller="Home" asp-action="News" class="ui input">
+                    <input style="width:60%; background-color: white;
+                    color: black;
+                    border:solid 1px white;
+                    border-radius: 23px;"
+                    type="text" name="SearchString" placeholder="Поиск...">
+
+                        <button style="
+                        background-color: transparent;
+                        color: black;
+                        border:none;
+                        margin-bottom: 3px;
+                        margin-left: -2px;
+                        border-color: #725EF2"
+                        class="ui icon button">
+                            <i class="large search icon"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div style="margin-top: 2em;"></div>
+    </div>
+
+</div>
+<div class="container" style="margin-top: 1em">
+    <div class="row">
+        <div class="col-sm-9">
+            @foreach (Post post in ViewBag.Posts)
+            {
+                if (Model.Posts.Contains(post))
+                {
+
+                    <div class="ui segment">
+                        <a href="~/Account/EditPosts/@post.Id" style="text-decoration: none; color: black; float:right">
+                            <i class="big edit outline icon"></i>
+                        </a>
+                        <div class="ui fluid placeholder">
+                            <div class="image header">
+                                <a class="ui mini circular image" style="float:left" href="~/Account/Profil/@post.User.Id">
+                                    <img style="height: 28px; width: 28px" src="@post.User.Image">
+                                </a>
+                                <h3 class="ui header">
+                                    @post.User.UserName
+                                    <div class="ui sub header">
+                                        @post.Date
+                                    </div>
+                                </h3>
+                            </div>
+                            <h2 class="ui header">
+                                @post.Text
+                            </h2>
+                        </div>
+                    </div>
+
+                }
+                if (Model.Clubs.Contains(post.Clubs))
+                { <div class="ui segment">
+                        <div class="ui fluid placeholder">
+                            <div class="image header">
+                                <a class="ui mini circular image" style="float:left" href="~/Home/Clubpage/@post.Clubs.Id">
+                                    <img style="height: 28px; width: 28px" src="@post.Clubs.Image">
+                                </a>
+                                <h3 class="ui header">
+                                    @post.Clubs.Name
+                                    <div class="ui sub header">
+                                        @post.Date
+                                    </div>
+                                </h3>
+                            </div>
+                            <h2 class="ui header">
+                                @post.Text
+                            </h2>
+                        </div>
+                    </div>
+                }
+            }
+
+        </div>
+        <div class="col-sm-3">
+            <div class="ui segment" style="">
+                @using (Html.BeginForm("PostInNews", "Home", FormMethod.Post))
+                {@Html.AntiForgeryToken()
+
+                    <div class="ui form">
+                        <div class="content">
+                            <div style="margin-top:1em;" class="field">
+                                <textarea style="margin:0,5em;"name="Text" placeholder="Введите текст публикации"></textarea>
+                            </div>
+                            <input style="margin-top:1em; border-radius: 23px;background-color: #725EF2;
+                                   color: white; border: none; height: 3em; width: 70%" class="ui center button" type="submit" value="Публиковать" />
+
+                        </div>
+                        <div style="margin-top: 1em" class="sub content">
+                               </div>
+                        
+                    </div>
+                 }
             </div>
         </div>
+        </div>
+    </div>
 
-    }
-    if (Model.Clubs.Contains(post.Clubs))
-    { <div class="ui segment">
-            <div class="ui fluid placeholder">
-                <div class="image header">
-                    <a class="ui mini circular image" style="float:left" href="~/Home/Clubpage/@post.Clubs.Id">
-                        <img style="height: 28px; width: 28px" src="@post.Clubs.Image">
-                    </a>
-                    <h3 class="ui header">
-                        @post.Clubs.Name
-                        <div class="ui sub header">
-                            @post.Date
-                        </div>
-                    </h3>
-                </div>
-                <h2 class="ui header">
-                    @post.Text
-                </h2>
-            </div>
-      </div>
-    }
-}
+         
