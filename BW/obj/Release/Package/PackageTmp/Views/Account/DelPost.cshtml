@@ -1,0 +1,21 @@
+﻿@model Post
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<div class="ui center header">
+    <br />
+    <h3>Вы уверены, что хотите удалить публикацию?</h3>
+    <br />
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Подтвердить" class="btn btn-default" />
+        </div>
+    }
+</div>
+

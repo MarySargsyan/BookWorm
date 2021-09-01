@@ -1,0 +1,101 @@
+﻿@using BW.Models
+@model Clubs
+@{
+    ViewBag.Title = "Edit";
+}
+
+<br />
+<br />
+
+@using (Html.BeginForm())
+{
+
+    <fieldset>
+        @Html.HiddenFor(model => model.Id)
+        
+        <div class="ui form">
+
+            <div class="ui three column grid">
+                <div class="ui column">
+                        <label>Название</label>
+
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.Name)
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="editor-field field">
+                            <label>Описание</label>
+                            @Html.EditorFor(model => model.Discription, new { htmlAttributes = new { @class = "", @cols = 35, @rows = 3 } })
+                            @Html.ValidationMessageFor(model => model.Discription, "", new { @class = "text-danger" })
+
+
+                        </div>
+                </div>
+                <div class="ui column">
+                    <div class="ui card">
+                        <div class="content">
+                            <div class="ui placeholder">
+                                <h4 class="ui header">
+                                    Тэги
+                                </h4>
+                                <div class="paragraph">
+                                    @foreach (Tags c in ViewBag.Tags)
+                                    {
+                                        <div class="ui checkbox">
+
+                                            <input name="selectedBooks" type="checkbox" value="@c.Id" @(Model.Tags.Contains(c) ? "checked=\"checked\"" : "") />
+                                            <label> @c.Name &nbsp </label>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <a style="text-decoration: none; color: gray" href="~/Home/Createtag" class="ui button">
+                                Добавить
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui column">
+                    <div class="ui card">
+                        <div class="content">
+                            <div class="ui placeholder">
+                                <h4 class="ui header">
+                                    Читаемая книга
+                                </h4>
+                                <div class="paragraph">
+                                    @foreach (Books books in Model.Books)
+                                    {
+                                        if (books.Id == Model.Readingbook)
+                                        {
+                                            @books.Name
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <a style="text-decoration:none; color: gray" href="~/Home/Bookadd/@Model.Id" class="ui button">
+                                Выбрать новую
+                            </a>
+                            <a style="text-decoration:none; color: white" id="savebooks" class="ui primary button" href="~/Home/bookcheck/@Model.Id">
+                                Отметить прочтенным
+                            </a>
+                        </div>
+                    </div>
+               </div>
+            </div>
+
+            <input class="ui primary button" type="submit" value="Сохранить" />
+            <a style="text-decoration: none; color: gray" href="~/Home/ClubPage/@Model.Id" class="ui button">
+                Отмена
+            </a>
+
+            @Html.ActionLink("Удалить Клуб", "DeleteClub", new { id = Model.Id })
+
+        </div>
+    </fieldset>
+}

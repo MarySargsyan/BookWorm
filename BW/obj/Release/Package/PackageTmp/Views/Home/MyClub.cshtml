@@ -1,0 +1,146 @@
+﻿@using BW.Models
+@model Clubs
+
+@{
+    ViewBag.Title = "MyClub";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $("#Chatbutton").click(function () {
+                $("#Chatbutton").addClass('active');
+                $("#Newsbutton").removeClass('active');
+                $("#news").css("display", "none");
+                $("#chat").css("display", "block");
+            })
+            $("#Newsbutton").click(function () {
+                $("#Newsbutton").addClass('active');
+                $("#Chatbutton").removeClass('active');
+                $("#chat").css("display", "none");
+                $("#news").css("display", "block");
+            })
+
+
+        });
+    </script>
+    <br class="my-4">
+    <div class="container">
+        <div class="row">
+            @*Карточка клуба*@
+            <div class="col-sm-3">
+                <div class="ui card">
+
+                    <img class="image" style=" height: 180px; " src="@Model.Image" />
+                    <div class="content">
+                        <div class="ui placeholder">
+
+                            <div class="ui header">
+                                <i class="@Model.Icon"></i>
+                                <div class="content">
+                                    <div class="header">@Model.Name</div>
+                                    <div class="sub header">@Model.Discription</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="sub content">
+                        <div class="header">Читают:</div>
+                        <div style="margin-top: 1em;" class="ui link list ">
+
+                            @foreach (Books books in Model.Books)
+                            {
+                                if (books.Id == Model.Readingbook)
+                                {
+                                    <a class="item" href="~/Books/Details/@books.Id">
+                                        @books.Name
+                                    </a>
+                                }
+                            }
+                        </div>
+
+                    </div>
+
+                    <div class="ui bottom attached button" style="        background-color: #A79AF8;">
+                        <a href="~/Home/Edit/@Model.Id" style="text-decoration: none; color: white">
+                            <i class="big edit outline icon"></i>
+                            Редактировать
+                        </a>
+                    </div>
+                </div>
+               
+                <div class="ui card">
+                    <div class="content">
+                        <div class="header">Прочтено @Model.Books.Count() книг</div>
+                        <div style="margin-top: 1em;" class="ui link list exbooks">
+
+                            @foreach (Books books in Model.Books)
+                            {
+                                if (books.Id != Model.Readingbook)
+                                {
+                                    <a class="item" href="~/Books/Details/@books.Id">
+                                        @books.Name
+                                    </a>
+                                }
+                            }
+                        </div>
+                    </div>
+                    <div class="extra content">
+                        <span class="right floated like">
+                            Все книги
+                            <i class="external alternate icon"></i>
+
+                        </span>
+                    </div>
+                </div>
+                <div class="ui card">
+                    <div class="content">
+                        <div class="header">Участники (@Model.ApplicationUser.Count())</div>
+                        <div style="margin-top: 1em;">
+                            <div class="ui horizontal list">
+                                @foreach (ApplicationUser User in Model.ApplicationUser)
+                                {
+                                    <a class="item" href="~/Account/Profil/@User.Id" style="color: gray">
+                                        <img style="float:left" class="ui avatar image" src="@User.Image">
+                                    </a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="extra content">
+                        <span class="right floated like">
+                            Все участники
+                            <i class="external alternate icon"></i>
+
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-9">
+                <div class="ui segment">
+
+                    <br />
+                    <div class="ui secondary pointing menu">
+                        <a id="Newsbutton" class="active item">
+                            Новости
+                        </a>
+                        <a id="Chatbutton" class="item">
+                            Чат
+                        </a>
+
+
+                    </div>
+                    <div id="news">@Html.Partial("MyClubNews")</div>
+                    <div id="chat" style="display: none">@Html.Partial("ClubChat")</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+

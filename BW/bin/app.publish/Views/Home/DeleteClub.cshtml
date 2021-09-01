@@ -1,0 +1,18 @@
+﻿@model BW.Models.Clubs
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Удаление клуба</h2>
+
+<h3>Вы уверены, что хотите удалить @Html.DisplayFor(model => model.Name) ?</h3>
+
+
+    @using (Html.BeginForm())
+    {
+        <div class="ui button">
+            <input type="submit" value="Удалить"/> 
+        </div>
+    }

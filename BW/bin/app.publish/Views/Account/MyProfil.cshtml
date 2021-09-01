@@ -1,0 +1,183 @@
+﻿@model BW.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "MyProfil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="ui segment">
+                <img class="ui small image" src="@Html.DisplayFor(model => model.Image)" />
+                <br />
+                <div class="ui list">
+
+                    <div class="item">
+                        <i class="birthday cake icon"></i>
+                        <div class="content">
+                            @Html.DisplayFor(model => model.BD)
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <i class="marker icon"></i>
+                        <div class="content">
+                            @Html.DisplayFor(model => model.City)
+                        </div>
+                    </div>
+                    <div class="item">
+                        <i class="phone icon"></i>
+                        <div class="content">
+                            @Html.DisplayFor(model => model.PhoneNumber)
+
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <div class="ui large horizontal divided list">
+                            @foreach (site c in Model.Sites)
+                            {
+                                foreach (networkicon i in ViewBag.Icons)
+                                {
+                                    if (i.id == c.networkicon.id)
+                                    {
+                                        <div class="item">
+                                            <a style="color: gray" href="@c.url">
+                                                <i class="@c.networkicon.ico"></i>
+                                            </a>
+                                        </div>
+                                    }
+
+                                }
+                            }
+
+                        </div>
+                    </div>
+                </div>              
+                <p>
+                    @Html.ActionLink("Редактировать", "Edit", new { id = Model.Id }) |  @Html.ActionLink("Настройки", "Index", "Manage", routeValues: null, htmlAttributes: new { id = "loginLink" })
+
+                </p>
+            </div>
+            <div class="ui segment">
+                <h4 class="ui header">
+                    Друзья
+                </h4>
+                <div class="ui horizontal list">
+
+                    @foreach (var friends in Model.Friend)
+                    {
+                        foreach (var User in friends.User)
+                        {
+                            if (User.Id != Model.Id)
+                            {
+                                <a class="item" style="color: gray" href="~/Account/Profil/@User.Id">
+
+                                    <img style="float:left" class="ui avatar image" src="@User.Image">
+
+                                </a>
+
+                            }
+
+
+                        }
+
+
+                    }
+                </div>
+            </div>
+
+            <div class="ui segment">
+
+                <h2 class="ui header">
+                    Клубы
+                </h2>
+                <div class="ui link list">
+
+                    @foreach (var clubs in Model.Clubs)
+                    {
+                        <a class="item" href="~/Home/Clubpage/@clubs.Id">
+                            <i class="@clubs.Icon"></i>
+                            @clubs.Name
+                        </a>
+                    }
+                </div>
+
+            </div>
+            <div class="ui segment">
+
+                <h2 class="ui header">
+                    Книги
+                </h2>
+                <div class="ui link list">
+
+                    @foreach (var books in Model.Book)
+                    {
+                        <a class="item" href="~/Books/Details/@books.Id">
+                            @books.Name
+                        </a>
+                    }
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-9">
+            <div class="ui segment">
+                <h4>@Html.DisplayFor(model => model.Email)</h4>
+
+                <h5>@Html.DisplayFor(model => model.about)</h5>
+
+
+            </div>
+            <div class="ui segment">
+                @using (Html.BeginForm("Create", "Posts", FormMethod.Post))
+                {<div class="ui form">
+
+                        @Html.AntiForgeryToken()
+                        <div class="field">
+                            <image class="ui mini circular image" style="float:left" src="@Model.Image" />
+
+                            <textarea style="margin-left: 10px" name="Text" placeholder="Введите текст публикации"></textarea>
+                            <input class="ui button" type="submit" value="Публиковать" />
+                        </div>
+
+
+                    </div>
+                }
+            </div>
+
+            @foreach (Post post in ViewBag.Posts)
+            {
+                if (Model.Posts.Contains(post))
+                {
+
+                    <div class="ui segment">
+                        <a href="~/Account/EditPosts/@post.Id" style="text-decoration: none; color: black; float:right">
+                            <i class="big edit outline icon"></i>
+                        </a>
+                        <div class="ui fluid placeholder">
+                            <div class="image header">
+                                <img class="ui mini circular image" style="float:left" src="@Model.Image">
+                                <h3 class="ui header">
+                                    @Model.Email
+                                    <div class="ui sub header">
+                                        @post.Date
+                                    </div>
+                                </h3>
+                            </div>
+                            <h2 class="ui header">
+                                @post.Text
+                            </h2>
+                        </div>
+                    </div>
+
+                }
+            }
+        </div>
+    </div>
+</div>
+
+

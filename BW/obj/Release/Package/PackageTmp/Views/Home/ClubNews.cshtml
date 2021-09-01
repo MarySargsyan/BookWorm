@@ -1,0 +1,26 @@
+﻿@model BW.Models.Clubs
+@using BW.Models
+@foreach (Post post in ViewBag.Posts)
+{
+    if (Model.Posts.Contains(post))
+    {
+        <div class="ui piled segment">
+
+
+            <div class="ui fluid placeholder">
+                <div class="image header">
+                    <img class="ui avatar image" style="float:left" src="@Model.Image">
+                    <h3 class="ui header">
+                        @Model.Name
+                        <div class="ui sub header">
+                            @post.Date
+                        </div>
+                    </h3>
+                </div>
+                <h2 class="ui header">
+                    @post.Text
+                </h2>
+            </div>          
+        </div>
+    }
+}

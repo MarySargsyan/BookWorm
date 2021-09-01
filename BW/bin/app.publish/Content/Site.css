@@ -1,0 +1,52 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    background-color: #F4F5FA;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.mybutton {
+    position: absolute;
+    width: 117px;
+    height: 35px;
+    border-radius: 23px;
+    color: #F4F5FA;
+}
+.Pry {
+    background: #725EF2;
+}
+.Sec {
+    border: 1px solid #F4F5FA;
+    box-sizing: border-box;
+    background: transparent;
+
+}
+a {
+    color: #337ab7;
+}
+
+h1 {
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+}

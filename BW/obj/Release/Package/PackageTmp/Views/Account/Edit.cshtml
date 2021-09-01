@@ -1,0 +1,95 @@
+﻿@model BW.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br/>
+<br/>
+
+@using (Html.BeginForm("Edit", "Account",
+    FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <fieldset>
+        @Html.HiddenFor(model => model.Id)
+        <div class="ui form">
+            <div class="container">
+                <div class="col-sm-6">
+                    <div class=" editor-filed">
+                            <div class="center small ui image">
+                                <img src="@Model.Image" />
+                            </div>
+                       
+                    </div>
+                    <div style="margin-top: 1em" class="editor-filed">
+                        <label>Город</label>
+                        @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+                    </div>
+                    <label>О себе</label>
+                    <div class="editor-filed">
+                        <textarea name="about" placeholder="Расскажите о своих навыках, увлечених и хобби :)"></textarea>
+                        @Html.ValidationMessageFor(model => model.about, "", new { @class = "text-danger" })
+                    </div>
+                    <label>Email</label>
+                    <div class="editor-filed">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                    <label>Номер телефона</label>
+                    <div class="editor-filed">
+                        @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                    </div>
+
+                    <label>Имя пользователя</label>
+                    <div class="editor-filed">
+                        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="ui card" style=" margin-top:1em; width: 360px">
+
+                        <div class="content">
+                            <div style="margin-top: 1em" class="header">
+                                Социальные сети
+                            </div>
+                            <div style="width: inherit; margin-top: 1em" class="container">
+                                <form class="form-inline">
+                                    @foreach (site c in Model.Sites)
+                                    {
+                                        foreach (networkicon i in ViewBag.Icons)
+                                        {
+                                            if (i.id == c.networkicon.id)
+                                            {<div class="form-row">
+                                                    <i style="color: gray;" class="large @i.ico"></i>
+                                                    <input type="text" name="url" value="@c.url" />
+                                                    <a href="~/sites/Delete/@c.id"><i style="color: gray" class="large delete icon"></i></a>
+                                                </div>
+                                            }
+
+                                        }
+                                    }
+                                </form>
+
+                            </div>
+
+                        </div>
+
+                        <div class="ui primary bottom attached button">
+                            <a style="color:white; text-decoration: none" href="~/sites/Create"><i class="big add icon"></i></a>
+                        </div>
+                    </div>
+                    <input style="margin-top:2em" class="big ui button" type="submit" value="Сохранить" />
+
+                </div>
+
+            </div>
+
+        </div> 
+    </fieldset>
+
+}

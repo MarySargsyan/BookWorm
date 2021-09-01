@@ -1,0 +1,52 @@
+﻿@model BW.Models.Clubs
+@using BW.Models
+
+
+
+@using (Html.BeginForm("NewClubPost", "Posts", new { Club_ID = Model.Id }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="html ui top attached segment">
+
+        <div class="ui form">
+            <div class=" center field">
+                <textarea rows="2" name="Text" placeholder="Введите текст публикации"></textarea>
+                <input style="margin-left:1em;text-align:center; position: absolute; width:117px;height: 30px; font-size:14px; border: none; border-radius: 23px; color: #F4F5FA; background-color: #725EF2;" type="submit" value="Публиковать" />
+            </div>
+        </div>
+    </div>
+}
+@foreach (Post post in ViewBag.Posts)
+{
+    if (Model.Posts.Contains(post))
+    {
+        <div class="ui piled segment">
+
+
+            <div class="ui fluid placeholder">
+                <div class="image header">
+                    <img class="ui avatar image" style="float:left" src="@Model.Image">
+                    <h3 class="ui header">
+                        @Model.Name
+                        <div class="ui sub header">
+                            @post.Date
+                        </div>
+                    </h3>
+                </div>
+                <h2 class="ui header">
+                    @post.Text
+                </h2>
+            </div>
+            @using (Html.BeginForm("Edit", "Posts", new { id = post.Id }, FormMethod.Get))
+            {
+                <div class="ui form">
+
+                    @Html.AntiForgeryToken()
+                    <input class="ui button" type="submit" value="ред." />
+                    @*<i class="big edit outline icon"></i>*@
+                </div>
+            }
+        </div>
+    }
+}
+

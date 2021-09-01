@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Chat>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="ui segment">
+
+    <div class="ui grid">
+        <div class="three wide column">
+            <div class="ui vertical fluid tabular menu">
+                <a class="item" href="~/Account/Profil">
+                    Моя страница
+                </a>
+                <a class="active item">
+                    Чаты
+                </a>
+            </div>
+        </div>
+        <div class="thirteen wide stretched column">
+            <div class="ui grid">
+                <div class="two column row">
+                    
+                    <div class="twelve wide column">
+
+                      
+
+                    </div>
+                    <div class="four wide column">
+                        <div class="ui segment">
+                            @Html.ActionLink("Создать", "Create")
+                        </div>
+                        <div class="ui segment">
+                            <table class="table">
+
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Name)
+                                        </td>
+                                        @*<td>
+                                            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                                            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                                            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                                            выйти из чата
+                                        </td>*@
+                                    </tr>
+                                }
+                            </table>
+                        </div>
+                    </div>
+                </div>
+              
+            </div>
+        </div>
+    </div>
+ </div>
+
+
+

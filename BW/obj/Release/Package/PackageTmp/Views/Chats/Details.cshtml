@@ -1,0 +1,43 @@
+﻿@model Chat
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+    <h3 class="ui header">
+        @Html.DisplayFor(model => model.Name)
+    </h3>
+    <hr />
+    <div class="ui segment">
+        <div>
+            @foreach (ChatMessage message in Model.Messages)
+            {<div>
+                  <img class="ui avatar image" src="@message.User.Image" />
+                    @message.User.UserName
+                    @message.Date
+                    @message.Text
+             </div>
+
+            }
+        </div>
+        <div class="ui segment">
+            @using (Html.BeginForm("Create", "ChatMessages", FormMethod.Post))
+            {<div class="ui form">
+                    @Html.AntiForgeryToken()
+            @Html.Hidden("chat", Model.Id)
+                    <div class="field">
+                        <textarea style="margin-left: 10px" name="Text" placeholder="Введите текст сообщения"></textarea>
+                        <input class="ui button" type="submit" value="Отправить" />
+                    </div>
+                </div>
+            }
+        </div>
+        <hr />
+        <p>
+            @Html.ActionLink("Редактировать", "Edit", new { id = Model.Id })
+        </p>
+    </div>
+
+

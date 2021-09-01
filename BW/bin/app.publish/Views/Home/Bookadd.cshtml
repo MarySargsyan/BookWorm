@@ -1,0 +1,75 @@
+﻿@using BW.Models
+@model Clubs
+<br />
+<br />
+
+<div class="ui placeholder segment">
+    <div class="ui two column stackable center aligned grid">
+        <div class="ui vertical divider">Или</div>
+        <div class="middle aligned row">
+            <div class="column">
+                <div class="ui icon header">
+                    <i class="search icon"></i>
+                    Найти книгу
+                </div>
+
+                <Form class="field" asp-controller="Home" asp-action="Bookadd">
+                    <div class="ui search">
+                        <div class="ui icon input">
+                            <input name="SearchString" class="prompt" type="text" placeholder="Поиск...">
+                            <i class="search icon"></i>
+                        </div>
+                        <div class="results"></div>
+                    </div>
+                </Form>
+            </div>
+            <div class="column">
+                <h2 class="ui  header">
+                    <i class="big icons">
+                        <i class="book icon"></i>
+                        <i class="corner add icon"></i>
+                    </i>
+                    <br />
+                    Добавить новую книгу
+                </h2>
+                <div class="ui primary button">
+                    @Html.ActionLink("Создать", "Create", "Books")
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<br />
+<br />
+@using (Html.BeginForm("bookadd", "Home", FormMethod.Post))
+{
+    <fieldset>
+        <div class="centered ui cards">
+
+            @foreach (Books book in ViewBag.Books)
+            {
+                <a style="text-decoration: none; margin-top: 1em; text-align: center ; color: black" href="~/Books/Details/@book.Id">
+
+                    <div class="ui card">
+                        <img class="image" style="background-color:white; height: 80px; " src="@book.img" />
+
+                        <div  class="content" style="height: 60px;">
+                            <h4 class="header">
+                                @book.Name
+                            </h4>
+                        </div>
+
+                        <div class="ui bottom attached button">
+                            <i class="add icon"></i>
+                            <input type="submit" value="Выбрать" style="border:none; background-color:transparent"/>
+
+                        </div>
+
+                    </div>
+                </a>
+            }
+        </div>
+    </fieldset>
+}
